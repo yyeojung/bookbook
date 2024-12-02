@@ -1,38 +1,242 @@
+@charset "utf-8";
+@font-face {
+  font-family: 'NanumSquareRound';
+  src: url('../src/asstes/fonts/NanumSquareRoundL.woff') format('woff');
+  font-weight: 300;
+}
+@font-face {
+  font-family: 'NanumSquareRound';
+  src: url('../src/asstes/fonts/NanumSquareRoundR.woff') format('woff');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'NanumSquareRound';
+  src: url('../src/asstes/fonts/NanumSquareRoundB.woff') format('woff');
+  font-weight: 700;
+}
+@font-face {
+  font-family: 'NanumSquareRound';
+  src: url('../src/asstes/fonts/NanumSquareRoundEB.woff') format('woff');
+  font-weight: 800;
+}
+
+/* reset */
+html {
+  font-size: 7px;
+}
+@media all and (min-width: 280px) {
+  html {
+    font-size: 7.777px;
+  }
+}
+@media all and (min-width: 290px) {
+  html {
+    font-size: 8.055px;
+  }
+}
+@media all and (min-width: 300px) {
+  html {
+    font-size: 8.333px;
+  }
+}
+@media all and (min-width: 310px) {
+  html {
+    font-size: 8.611px;
+  }
+}
+@media all and (min-width: 320px) {
+  html {
+    font-size: 9.166px;
+  }
+}
+@media all and (min-width: 330px) {
+  html {
+    font-size: 9.166px;
+  }
+}
+@media all and (min-width: 340px) {
+  html {
+    font-size: 9.444px;
+  }
+}
+@media all and (min-width: 350px) {
+  html {
+    font-size: 9.722px;
+  }
+}
+@media all and (min-width: 360px) {
+  html {
+    font-size: 10px;
+  }
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+body * {
+  box-sizing: border-box;
+}
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+div,
+p,
+blockquote,
+pre,
+code,
+address,
+ul,
+ol,
+li,
+menu,
+nav,
+section,
+article,
+aside,
+dl,
+dt,
+dd,
+table,
+thead,
+tbody,
+tfoot,
+label,
+caption,
+th,
+td,
+form,
+fieldset,
+legend,
+hr,
+input,
+button,
+textarea,
+object,
+figure,
+figcaption {
+  margin: 0;
+  padding: 0;
+}
+body {
+  -webkit-text-size-adjust: none;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+body.fixed {
+  overflow-y: hidden;
+}
+body,
+input,
+select,
+textarea,
+button,
+pre {
+  border: none;
+  font-size: 1.6rem;
+  color: #25262b;
+  font-family: NanumSquareRound, sans-serif;
+}
+ul,
+ol,
+li {
+  list-style-type: none;
+}
+table {
+  border-spacing: 0;
+}
+img,
+fieldset {
+  border: 0;
+}
+address,
+cite,
+code {
+  font-style: normal;
+  font-weight: normal;
+}
+em,
+i {
+  font-style: normal;
+}
+label,
+img,
+input,
+select,
+textarea,
+button {
+  vertical-align: middle;
+}
+.hide,
+legend {
+  overflow: hidden;
+  display: block;
+  position: absolute;
+  border: 0;
+  width: 0.1rem;
+  height: 0.1rem;
+  clip: rect(0.1rem, 0.1rem, 0.1rem, 0.1rem);
+}
+hr {
+  display: none;
+}
+main,
+header,
+section,
+nav,
+footer,
+aside,
+article,
+figure {
+  display: block;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+button {
+  cursor: pointer;
+  color: inherit;
+  background-color: transparent;
+  font-weight: 400;
+}
+pre {
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+/* css */
+/* :root {
+} */
+body {
+  background-color: #fff;
+}
+
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+  max-width: 60rem;
+  margin: auto;
+  height: 100vh;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
-
-.App-link {
-  color: #61dafb;
+/* 스크롤바 */
+::-webkit-scrollbar {
+  width: 10px;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
