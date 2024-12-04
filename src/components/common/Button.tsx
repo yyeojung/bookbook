@@ -1,10 +1,8 @@
+import { ButtonHTMLAttributes } from 'react';
 import styled from 'styled-components';
 
-interface ButtonProps {
-  text?: string;
-  width?: string;
-  height?: string;
-  className?: string;
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  text: string;
 }
 
 const CustomBtn = styled.button`
@@ -15,15 +13,7 @@ const CustomBtn = styled.button`
   color: #fff;
   font-weight: 800;
 `;
-export default function Button({
-  text,
-  width,
-  height,
-  className
-}: ButtonProps) {
-  return (
-    <CustomBtn className={className} style={{ width: width, height: height }}>
-      {text}
-    </CustomBtn>
-  );
+
+export default function Button({ text, ...props }: ButtonProps) {
+  return <CustomBtn {...props}>{text}</CustomBtn>;
 }

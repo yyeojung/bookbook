@@ -62,7 +62,7 @@ export default function Menu() {
       <MenuList>
         <li>
           <NavLink
-            to='/'
+            to='/home'
             className={({ isActive }) => (isActive ? 'active' : '')}
           >
             <GoHomeFill />

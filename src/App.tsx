@@ -8,6 +8,7 @@ import Library from 'page/Library';
 import Setting from 'page/Setting';
 import Statistics from 'page/Statistics';
 import Menu from 'components/common/Menu';
+import HomeSearch from 'page/HomeSearch';
 
 const Delete = styled.div`
   display: flex;
@@ -44,7 +45,8 @@ function App() {
         <Router basename={process.env.PUBLIC_URL}>
           <Menu />
           <Routes>
-            <Route path='/' element={<Home />} />
+            <Route path='/home' element={<Home />} />
+            <Route path='/home/search' element={<HomeSearch />} />
             <Route path='/library' element={<Library />} />
             <Route path='/setting' element={<Setting />} />
             <Route path='/statistics' element={<Statistics />} />

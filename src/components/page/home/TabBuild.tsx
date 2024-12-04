@@ -1,10 +1,59 @@
 import styled from 'styled-components';
+import test from '../../../asstes/image/character/book-icon-01.png';
 
 const Wrap = styled.div`
   position: absolute;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
+
+  .book_height {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    img {
+      width: 4rem;
+    }
+
+    p {
+      position: relative;
+      height: 3.2rem;
+      min-width: 9rem;
+      width: fit-content;
+      margin: auto;
+      text-align: center;
+      line-height: 3.2rem;
+      font-size: 1.4rem;
+      font-weight: 600;
+      border-radius: 1.6rem;
+      border: 0.2rem solid ${(props) => props.theme.currentTheme.subColor03};
+
+      &::before,
+      &::after {
+        display: block;
+        content: '';
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 1rem 1rem 0rem 1rem;
+      }
+      &::before {
+        bottom: -1rem;
+        border-color: ${(props) => props.theme.currentTheme.subColor03}
+          transparent transparent transparent;
+      }
+      &::after {
+        bottom: -0.8rem;
+        border-color: #fff transparent transparent transparent;
+      }
+    }
+  }
 `;
 
 const BookList = styled.ul`
@@ -19,6 +68,7 @@ const BookList = styled.ul`
     border-radius: 0.8rem;
     text-align: center;
     color: #fff;
+    font-size: 1.4rem;
 
     &:nth-child(4n) {
       background: ${(props) => props.theme.currentTheme.mainColor};
@@ -54,7 +104,10 @@ export default function TabBuild() {
   ];
   return (
     <Wrap>
-      <div className='cm_box'>13.8cm</div>
+      <div className='book_height'>
+        <p>13.8cm</p>
+        <img src={test} alt='test' />
+      </div>
       <BookList>
         {dummy.map((name, i) => (
           <li key={i}>{name}</li>

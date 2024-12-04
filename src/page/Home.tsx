@@ -1,8 +1,9 @@
-import HomeSearch from 'components/HomeSearch';
 import styled from 'styled-components';
 import { GoTriangleDown } from 'react-icons/go';
 import { useState } from 'react';
-import TabBuild from 'components/HomeTabBuild';
+import TabBuild from 'components/page/home/TabBuild';
+import TabList from 'components/page/home/TabList';
+import SearchBook from 'components/page/home/SearchBook';
 
 const Wrap = styled.div`
   padding: 2rem 2rem 0;
@@ -60,7 +61,7 @@ export default function Home() {
   };
   return (
     <Wrap>
-      <HomeSearch />
+      <SearchBook />
       <div className='show_text'>
         <span>전체 보기 (0)</span>
         <GoTriangleDown />
@@ -86,7 +87,7 @@ export default function Home() {
           <br />
           책을 추가해보세요 :&#41;
         </p>
-        {currentTab ? <TabBuild /> : <div>리스트로 보기</div>}
+        {currentTab ? <TabBuild /> : <TabList />}
       </div>
     </Wrap>
   );
