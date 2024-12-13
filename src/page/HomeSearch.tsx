@@ -12,12 +12,55 @@ interface BookTypes {
   pubDate: string;
 }
 
-const Wrap = styled.div``;
+const Wrap = styled.div`
+  .contents_wrap {
+    padding: 1rem 2rem 2rem;
+  }
+  .contents {
+    padding: 1rem 0 8rem;
+    min-height: calc(100vh - 17rem);
+  }
+`;
+
+const BookList = styled.ul`
+  li {
+    padding: 1rem 0;
+    display: flex;
+    gap: 1rem;
+    border-bottom: 0.1rem solid #d5d5d5;
+
+    img {
+      width: 9rem;
+      height: 11rem;
+      border-radius: 0.8rem;
+      object-fit: fill;
+      box-shadow: var(--card_shadow);
+    }
+
+    .desc {
+      width: calc(100% - 10rem);
+      .title {
+        margin: 0.6rem 0 0.4rem;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        -webkit-line-clamp: 2;
+        line-height: 1.25;
+      }
+
+      .sub {
+        word-break: break-word;
+        font-size: 1.4rem;
+        color: ${(props) => props.theme.colors.gray78};
+      }
+    }
+  }
+`;
 
 export default function HomeSearch() {
   // 검색어 가져오기
-  const queryString = useLocation().search;
-  const queryParams = new URLSearchParams(queryString);
+  const { search } = useLocation();
+  const queryParams = new URLSearchParams(search);
   const query = queryParams.get('q');
   const [resultBooks, setResultBooks] = useState<BookTypes[]>([]);
   const [loading, setLoading] = useState(false);
@@ -30,8 +73,9 @@ export default function HomeSearch() {
     try {
       setLoading(true);
       const response = await fetch(
+        // cors 오류로 heroku/api주소
         `
-            https://cors-anywhere.herokuapp.com/http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=${
+            https://tranquil-tundra-65213-03a93afc8c4f.herokuapp.com/http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=${
               process.env.REACT_APP_TTB_KEY
             }&Query=${query}&QueryType=Title&MaxResults=10&start=1&SearchTarget=Book&Cover=Big&output=js&Version=20131101
         `
@@ -44,34 +88,44 @@ export default function HomeSearch() {
       console.log(error);
     }
   };
-  console.log(resultBooks);
 
   const navigate = useNavigate();
 
   const onClickBack = () => {
-    navigate(-1);
+    navigate('/home');
   };
 
   return (
     <Wrap>
       <SubHeader text='책 검색' onClick={onClickBack} />
-      <SearchBook />
-      {loading ? (
-        <p>로딩중</p>
-      ) : (
-        <ul>
-          {resultBooks?.map((item) => (
-            <li key={item.itemId}>
-              <img src={item.cover} alt={item.title} />
-              <p>{item.title}</p>
-              <div>
-                <span>{item.author}</span>
-                <span>{item.pubDate}</span>
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
+      <div className='contents_wrap'>
+        <SearchBook />
+        <div className={`contents ${resultBooks.length > 0 ? '' : 'empty'}`}>
+          {loading ? (
+            <p>로딩중</p>
+          ) : resultBooks.length > 0 ? (
+            <BookList>
+              {resultBooks?.map((item) => (
+                <li key={item.itemId}>
+                  <img src={item.cover} alt={item.title} />
+                  <div className='desc'>
+                    <p className='title'>{item.title}</p>
+                    <div className='sub'>
+                      <span>{item.author}</span> | <span>{item.pubDate}</span>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </BookList>
+          ) : (
+            <div className='empty_text'>
+              검색 결과가 없습니다.
+              <br />
+              검색어를 다시 확인해주세요 :&#41;
+            </div>
+          )}
+        </div>
+      </div>
     </Wrap>
   );
 }

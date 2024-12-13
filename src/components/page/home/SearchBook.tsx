@@ -1,18 +1,35 @@
 import styled from 'styled-components';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Button from 'components/common/Button';
-
+import { IoIosCloseCircle } from 'react-icons/io';
 const Form = styled.form`
   display: flex;
   gap: 1rem;
 `;
-const Input = styled.input`
-  background: ${(props) => props.theme.colors.grayF2};
-  height: 4rem;
-  border-radius: 0.8rem;
-  padding: 1rem 1.6rem;
+const InputWrap = styled.div`
   width: 100%;
+  position: relative;
+
+  input {
+    background: ${(props) => props.theme.colors.grayF2};
+    height: 4rem;
+    border-radius: 0.8rem;
+    padding: 1rem 1.6rem;
+    width: 100%;
+  }
+
+  button {
+    position: absolute;
+    top: 1rem;
+    right: 1.4rem;
+
+    svg {
+      width: 2rem;
+      height: 2rem;
+      fill: #8f8f8f;
+    }
+  }
 
   &::placeholder {
     color: ${(props) => props.theme.colors.gray78};
@@ -22,6 +39,17 @@ const Input = styled.input`
 export default function SearchBook() {
   const [searchValue, setSearchValue] = useState('');
   const navigate = useNavigate();
+
+  const { search } = useLocation();
+  const queryParams = new URLSearchParams(search);
+  const query = queryParams.get('q');
+
+  //   query가 있을 때 input 기본값으로
+  useEffect(() => {
+    if (query) {
+      setSearchValue(query);
+    }
+  }, []);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -36,14 +64,25 @@ export default function SearchBook() {
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
   };
+
+  // 검색어 삭제 이벤트
+  const onClickRemove = () => {
+    setSearchValue('');
+  };
   return (
     <Form onSubmit={onSubmit}>
-      <Input
-        type='text'
-        placeholder='책 검색하기'
-        onChange={onChangeInput}
-        value={searchValue}
-      />
+      <InputWrap>
+        <input
+          type='text'
+          placeholder='책 검색하기'
+          onChange={onChangeInput}
+          value={searchValue}
+        />
+        <button type='button' onClick={onClickRemove}>
+          <IoIosCloseCircle />
+          <span className='sr_only'>닫기</span>
+        </button>
+      </InputWrap>
       <Button type='submit' text='검색' />
     </Form>
   );

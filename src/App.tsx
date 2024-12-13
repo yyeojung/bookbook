@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { themes, colors } from './asstes/style/theme';
+import { themes, colors } from './assets/style/theme';
 import './App.css';
 import Home from 'page/Home';
 import styled, { ThemeProvider } from 'styled-components';
@@ -9,6 +9,8 @@ import Setting from 'page/Setting';
 import Statistics from 'page/Statistics';
 import Menu from 'components/common/Menu';
 import HomeSearch from 'page/HomeSearch';
+import Styleguide from 'page/Styleguide';
+import Login from './page/Login';
 
 const Delete = styled.div`
   display: flex;
@@ -50,6 +52,9 @@ function App() {
             <Route path='/library' element={<Library />} />
             <Route path='/setting' element={<Setting />} />
             <Route path='/statistics' element={<Statistics />} />
+            <Route path='/login' element={<Login />} />
+            {/* styleguide */}
+            <Route path='/styleguide' element={<Styleguide />} />
           </Routes>
         </Router>
       </div>

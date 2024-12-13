@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { IoChatbubbleSharp } from 'react-icons/io5';
 
-import LoginImg from '../image/book.png';
+import LoginImg from '../assets/image/book.png';
 
 const Wrap = styled.div`
   background: #f9c2ba;

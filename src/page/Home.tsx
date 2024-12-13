@@ -4,6 +4,8 @@ import { useState } from 'react';
 import TabBuild from 'components/page/home/TabBuild';
 import TabList from 'components/page/home/TabList';
 import SearchBook from 'components/page/home/SearchBook';
+import { useModal } from 'hook/useModal';
+import ModalHomeView from 'components/modal/ModalHomeView';
 
 const Wrap = styled.div`
   padding: 2rem 2rem 0;
@@ -55,14 +57,20 @@ const TabShow = styled.ul`
 
 export default function Home() {
   const [currentTab, setCurrentTab] = useState(true);
+  const { isModalOpen, openModal, closeModal } = useModal();
 
   const onClickTab = (e: boolean) => {
     setCurrentTab(e);
+  };
+
+  const onClickView = () => {
+    closeModal();
   };
   return (
     <Wrap>
       <SearchBook />
       <div className='show_text'>
+        <button onClick={() => openModal('all-view')}>Open Modal</button>
         <span>전체 보기 (0)</span>
         <GoTriangleDown />
       </div>
@@ -89,6 +97,12 @@ export default function Home() {
         </p>
         {currentTab ? <TabBuild /> : <TabList />}
       </div>
+
+      {/* modal */}
+      <ModalHomeView
+        isOpen={isModalOpen === 'all-view'}
+        onClick={onClickView}
+      />
     </Wrap>
   );
 }

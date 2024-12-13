@@ -1,22 +1,22 @@
 @charset "utf-8";
 @font-face {
   font-family: 'NanumSquareRound';
-  src: url('../src/asstes/fonts/NanumSquareRoundL.woff') format('woff');
+  src: url('../src/assets/fonts/NanumSquareRoundL.woff') format('woff');
   font-weight: 300;
 }
 @font-face {
   font-family: 'NanumSquareRound';
-  src: url('../src/asstes/fonts/NanumSquareRoundR.woff') format('woff');
+  src: url('../src/assets/fonts/NanumSquareRoundR.woff') format('woff');
   font-weight: 400;
 }
 @font-face {
   font-family: 'NanumSquareRound';
-  src: url('../src/asstes/fonts/NanumSquareRoundB.woff') format('woff');
+  src: url('../src/assets/fonts/NanumSquareRoundB.woff') format('woff');
   font-weight: 700;
 }
 @font-face {
   font-family: 'NanumSquareRound';
-  src: url('../src/asstes/fonts/NanumSquareRoundEB.woff') format('woff');
+  src: url('../src/assets/fonts/NanumSquareRoundEB.woff') format('woff');
   font-weight: 800;
 }
 
@@ -213,37 +213,101 @@ pre {
   white-space: pre-wrap;
   word-wrap: break-word;
 }
+/* 스크롤바 */
+::-webkit-scrollbar {
+  width: 0.6rem;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #d9d9d9;
+  border-radius: 0.5rem;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #a2a2a2;
+}
+
 /* css */
-/* :root {
-} */
+:root {
+  --card_shadow: 0.4rem 0.4rem 1rem 0 rgba(0, 0, 0, 0.1);
+}
 body {
   background-color: #fff;
 }
-
 .App {
   max-width: 60rem;
   margin: auto;
   height: 100vh;
   min-height: 100vh;
 }
-/* 스크롤바 */
-::-webkit-scrollbar {
-  width: 10px;
-}
-::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 5px;
-}
-::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 5px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
+
+/* margin */
+.mt_4 {
+  margin-top: 0.4rem;
 }
 
-/* 공통 style */
+.text_ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* modal */
+.ReactModalPortal .default {
+  padding: 0 0.8rem;
+}
+.ReactModalPortal .default p,
+.ReactModalPortal .btn_wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ReactModalPortal .default p {
+  min-height: 6.6rem;
+}
+.ReactModalPortal .btn_wrap {
+  margin-top: 2rem;
+  gap: 1rem;
+}
+
+.ReactModal__Content {
+  overflow: inherit;
+}
+
+/* contents */
 .sub_title {
   font-size: 1.4rem;
   color: #787878;
+}
+.contents.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sr_only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.empty_text {
+  text-align: center;
+  line-height: 1.5;
+}
+.radiomark {
+  width: 2rem;
+  height: 2rem;
+  background: url('./assets/image/radio-default.svg') no-repeat center / contain;
+}
+@media (max-width: 420px) {
+  .star-svg {
+    width: 2rem;
+    height: 2rem;
+  }
 }

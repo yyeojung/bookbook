@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import test from '../../../asstes/image/character/book-icon-01.png';
+import test from '../../../assets/image/character/book-icon-01.png';
 
 const Wrap = styled.div`
   position: absolute;
