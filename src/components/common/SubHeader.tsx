@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { IoIosArrowBack } from 'react-icons/io';
+import { useNavigate } from 'react-router-dom';
 
 const Header = styled.div`
   height: 6rem;
@@ -31,13 +32,22 @@ const Header = styled.div`
 
 interface SubHeaderProps {
   text: string;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 export default function SubHeader({ text, onClick }: SubHeaderProps) {
+  const navigate = useNavigate();
+
+  const onClickBack = () => {
+    if (onClick) {
+      onClick();
+    } else {
+      navigate(-1);
+    }
+  };
   return (
     <Header>
-      <button onClick={onClick}>
+      <button onClick={onClickBack}>
         <IoIosArrowBack />
       </button>
       <strong>{text}</strong>

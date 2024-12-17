@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { themes, colors } from './assets/style/theme';
+import { themes } from './assets/style/theme';
 import './App.css';
 import Home from 'page/Home';
 import styled, { ThemeProvider } from 'styled-components';
@@ -11,6 +11,8 @@ import Menu from 'components/common/Menu';
 import HomeSearch from 'page/HomeSearch';
 import Styleguide from 'page/Styleguide';
 import Login from './page/Login';
+import HomeDetail from 'page/HomeDetail';
+import HomeRegister from 'page/HomeRegister';
 
 const Delete = styled.div`
   display: flex;
@@ -30,13 +32,8 @@ function App() {
     setCurrentTheme(themes[themeName]);
   };
 
-  const myTheme = {
-    colors,
-    currentTheme
-  };
-
   return (
-    <ThemeProvider theme={myTheme}>
+    <ThemeProvider theme={currentTheme}>
       <div className='App'>
         <Delete>
           <button onClick={() => onClickTheme('pink')}> pi</button>
@@ -49,6 +46,8 @@ function App() {
           <Routes>
             <Route path='/home' element={<Home />} />
             <Route path='/home/search' element={<HomeSearch />} />
+            <Route path='/home/detail' element={<HomeDetail />} />
+            <Route path='/home/register' element={<HomeRegister />} />
             <Route path='/library' element={<Library />} />
             <Route path='/setting' element={<Setting />} />
             <Route path='/statistics' element={<Statistics />} />

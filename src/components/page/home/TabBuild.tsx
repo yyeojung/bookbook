@@ -29,7 +29,7 @@ const Wrap = styled.div`
       font-size: 1.4rem;
       font-weight: 600;
       border-radius: 1.6rem;
-      border: 0.2rem solid ${(props) => props.theme.currentTheme.subColor03};
+      border: 0.2rem solid ${(props) => props.theme.subColor03};
 
       &::before,
       &::after {
@@ -45,8 +45,8 @@ const Wrap = styled.div`
       }
       &::before {
         bottom: -1rem;
-        border-color: ${(props) => props.theme.currentTheme.subColor03}
-          transparent transparent transparent;
+        border-color: ${(props) => props.theme.subColor03} transparent
+          transparent transparent;
       }
       &::after {
         bottom: -0.8rem;
@@ -71,21 +71,21 @@ const BookList = styled.ul`
     font-size: 1.4rem;
 
     &:nth-child(4n) {
-      background: ${(props) => props.theme.currentTheme.mainColor};
+      background: ${(props) => props.theme.mainColor};
       margin: 0 -1rem 0 1rem;
-      color: ${(props) => props.theme.colors.textColor};
+      color: var(--textColor);
     }
     &:nth-child(4n + 1) {
-      background: ${(props) => props.theme.currentTheme.subColor02};
+      background: ${(props) => props.theme.subColor02};
       margin: 0 -1.6rem 0 1.6rem;
     }
     &:nth-child(4n + 2) {
-      background: ${(props) => props.theme.currentTheme.subColor01};
+      background: ${(props) => props.theme.subColor01};
       margin: 0 -1rem 0 -1rem;
-      color: ${(props) => props.theme.colors.textColor};
+      color: var(--textColor);
     }
     &:nth-child(4n + 3) {
-      background: ${(props) => props.theme.currentTheme.subColor03};
+      background: ${(props) => props.theme.subColor03};
     }
   }
 `;

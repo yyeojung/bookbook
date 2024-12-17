@@ -12,7 +12,7 @@ const Radio = styled.label`
     display: none;
   }
   input:checked + .radiomark {
-    background-image: url(${(props) => props.theme.currentTheme.radio});
+    background-image: url(${(props) => props.theme.radio});
   }
 `;
 

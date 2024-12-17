@@ -50,15 +50,15 @@ const StyledSelect = styled(Select)<{ width?: string }>`
     }
 
     .custom__option {
-      color: ${(props) => props.theme.colors.textColor};
+      color: var(--textColor);
       border-radius: 0.8rem;
       text-align: center;
 
       &.custom__option--is-selected {
-        background: ${(props) => props.theme.currentTheme.mainColor};
+        background: ${(props) => props.theme.mainColor};
       }
       &.custom__option--is-focused {
-        background: ${(props) => props.theme.currentTheme.subColor01};
+        background: ${(props) => props.theme.subColor01};
       }
     }
   }

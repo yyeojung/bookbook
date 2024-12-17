@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import Button from '../common/Button';
 import RadioBtn from '../common/RadioBtn';
 import ModalLayout from './ModalLayout';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import Dropdown from 'components/common/Dropdown';
 import { selectMonth, selectYear } from 'data/selectOption';
 
@@ -27,7 +27,7 @@ const Contents = styled.div`
 export default function ModalHomeView({ isOpen, onClick }: ModalHomeProps) {
   const [isYear, setIsYear] = useState(false);
 
-  const onChangeRadio = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeRadio = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.value === 'year') {
       setIsYear(true);
     } else {

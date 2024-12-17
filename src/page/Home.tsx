@@ -21,7 +21,7 @@ const Wrap = styled.div`
     svg {
       width: 3rem;
       height: 3rem;
-      fill: ${(props) => props.theme.currentTheme.subColor03};
+      fill: ${(props) => props.theme.subColor03};
     }
   }
 
@@ -29,65 +29,45 @@ const Wrap = styled.div`
     position: relative;
     min-height: calc(100vh - 21.4rem);
   }
-`;
 
-const TabShow = styled.ul`
-  background: ${(props) => props.theme.colors.grayF2};
-  border-radius: 8px;
-  height: 4rem;
-  display: flex;
-  align-items: center;
-
-  li {
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.2s all;
-
-    &.active {
-      background: ${(props) => props.theme.currentTheme.subColor03};
-      color: #fff;
-    }
+  .tab_wrap li.bg {
+    background: ${(props) => props.theme.subColor03};
   }
 `;
 
 export default function Home() {
-  const [currentTab, setCurrentTab] = useState(true);
+  const [tabBuild, setTabBuild] = useState(true);
   const { isModalOpen, openModal, closeModal } = useModal();
 
   const onClickTab = (e: boolean) => {
-    setCurrentTab(e);
+    setTabBuild(e);
   };
 
-  const onClickView = () => {
+  const onClickModal = () => {
     closeModal();
   };
   return (
     <Wrap>
       <SearchBook />
-      <div className='show_text'>
-        <button onClick={() => openModal('all-view')}>Open Modal</button>
-        <span>전체 보기 (0)</span>
+      <button className='show_text' onClick={() => openModal('all-view')}>
+        전체 보기 (0)
         <GoTriangleDown />
-      </div>
-      <TabShow>
+      </button>
+      <ul className='tab_wrap'>
         <li
           onClick={() => onClickTab(true)}
-          className={currentTab ? 'active' : ''}
+          className={tabBuild ? 'active' : ''}
         >
           쌓아보기
         </li>
         <li
           onClick={() => onClickTab(false)}
-          className={!currentTab ? 'active' : ''}
+          className={!tabBuild ? 'active' : ''}
         >
           리스트형 보기
         </li>
-      </TabShow>
+        <li className={`bg ${tabBuild ? 'left' : 'right'}`}></li>
+      </ul>
       <div className='tab_contents'>
         {/* 데이터 없을시 */}
         <p>
@@ -95,13 +75,13 @@ export default function Home() {
           <br />
           책을 추가해보세요 :&#41;
         </p>
-        {currentTab ? <TabBuild /> : <TabList />}
+        {tabBuild ? <TabBuild /> : <TabList />}
       </div>
 
       {/* modal */}
       <ModalHomeView
         isOpen={isModalOpen === 'all-view'}
-        onClick={onClickView}
+        onClick={onClickModal}
       />
     </Wrap>
   );

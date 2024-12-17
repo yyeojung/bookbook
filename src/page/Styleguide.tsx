@@ -1,4 +1,6 @@
 import Button from 'components/common/Button';
+import Calendar from 'components/common/Calendar';
+import CalendarPeriod from 'components/common/CalendarPeriod';
 import Dropdown from 'components/common/Dropdown';
 import RadioBtn from 'components/common/RadioBtn';
 import StarRating from 'components/common/StarRating';
@@ -6,6 +8,7 @@ import SubHeader from 'components/common/SubHeader';
 import ModalLayout from 'components/modal/ModalLayout';
 import { selectYear } from 'data/selectOption';
 import { useModal } from 'hook/useModal';
+import { useState } from 'react';
 import styled from 'styled-components';
 
 const Wrap = styled.div`
@@ -21,6 +24,8 @@ const Flex = styled.div`
 
 export default function Styleguide() {
   const { isModalOpen, openModal, closeModal } = useModal();
+
+  const [selectDate, setSelectDate] = useState<Date | null>(null);
 
   const sampleOption = [
     { value: '전체', label: '전체' },
@@ -50,10 +55,12 @@ export default function Styleguide() {
       <h3>sub header</h3>
       <SubHeader text='제목' onClick={() => console.log('sub')} />
 
-      {/* dropdown */}
-      <h3>dropdown</h3>
+      {/* form */}
+      <h3>form</h3>
       <Dropdown width='30rem' options={sampleOption} />
       <Dropdown width='30rem' options={selectYear()} />
+      <Calendar selectedDate={selectDate} setSelectedDate={setSelectDate} />
+      <CalendarPeriod />
 
       {/* radio */}
       <h3>radio</h3>

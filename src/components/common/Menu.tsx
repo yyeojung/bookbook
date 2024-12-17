@@ -34,10 +34,10 @@ const MenuList = styled.ul`
 
       &.active {
         svg {
-          fill: ${(props) => props.theme.currentTheme.subColor03};
+          fill: ${(props) => props.theme.subColor03};
         }
         p {
-          color: ${(props) => props.theme.currentTheme.subColor03};
+          color: ${(props) => props.theme.subColor03};
         }
       }
     }
@@ -45,7 +45,7 @@ const MenuList = styled.ul`
     svg {
       width: 2.4rem;
       height: 2.4rem;
-      fill: ${(props) => props.theme.colors.grayD9};
+      fill: var(--grayD9);
     }
 
     p {

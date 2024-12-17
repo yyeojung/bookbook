@@ -1,3 +1,12 @@
+## 241217
+
+- 홈화면 UI 완료
+
+## 241216
+
+- themes.ts colors 삭제
+  공통 컬러 app.css :root로 관리
+
 ## 241213 라이브러리 사용하기
 
 - react-select 추가
@@ -14,14 +23,12 @@ components/common/StarRating.tsx
 
 모달 레이아웃, 타입별 모달 추가
 
-## 241205
-
-# cors 오류
+## 241205 cors 오류
 
 ~~ set the request's mode to 'no-cors' to fetch the resource with CORS disabled
 알라딘 검색 api를 가져오는데 cors 정책 위반 오류 발생.
 
 처음엔 https://cors-anywhere.herokuapp.com/ 을 이용했으나 일시적으로만 사용 가능한 방법이라
-heroku 주소를 받아 해결하기로 했다.
+heroku 주소를 받아 해결.
 
 출처: https://codemasterkimc.tistory.com/128

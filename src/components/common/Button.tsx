@@ -8,7 +8,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const CustomBtn = styled.button`
-  background: ${(props) => props.theme.currentTheme.subColor03};
+  background: ${(props) => props.theme.subColor03};
   min-width: 7rem;
   height: 4rem;
   border-radius: 0.8rem;
@@ -16,7 +16,7 @@ const CustomBtn = styled.button`
   font-weight: 800;
 
   &.gray {
-    background: ${(props) => props.theme.colors.grayA3};
+    background: var(--grayA3);
   }
 `;
 

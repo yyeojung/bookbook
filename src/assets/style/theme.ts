@@ -3,14 +3,6 @@ import radioYellow from '../image/radio-yellow.svg';
 import radioBlue from '../image/radio-blue.svg';
 import radioGreen from '../image/radio-green.svg';
 
-export const colors = {
-  textColor: '#3C3C3C',
-  gray78: '#787878',
-  grayD9: '#D9D9D9',
-  grayF2: '#F2F2F2',
-  grayA3: '#a3a3a3'
-};
-
 export const themes = {
   pink: {
     mainColor: '#F9C2BA',

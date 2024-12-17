@@ -19,6 +19,10 @@ const Wrap = styled.div`
   .contents {
     padding: 1rem 0 8rem;
     min-height: calc(100vh - 17rem);
+
+    ul li {
+      cursor: pointer;
+    }
   }
 `;
 
@@ -51,7 +55,7 @@ const BookList = styled.ul`
       .sub {
         word-break: break-word;
         font-size: 1.4rem;
-        color: ${(props) => props.theme.colors.gray78};
+        color: var(--gray78);
       }
     }
   }
@@ -91,13 +95,13 @@ export default function HomeSearch() {
 
   const navigate = useNavigate();
 
-  const onClickBack = () => {
+  const onClickHome = () => {
     navigate('/home');
   };
 
   return (
     <Wrap>
-      <SubHeader text='책 검색' onClick={onClickBack} />
+      <SubHeader text='책 검색' onClick={onClickHome} />
       <div className='contents_wrap'>
         <SearchBook />
         <div className={`contents ${resultBooks.length > 0 ? '' : 'empty'}`}>

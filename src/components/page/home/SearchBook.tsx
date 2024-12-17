@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Button from 'components/common/Button';
 import { IoIosCloseCircle } from 'react-icons/io';
@@ -12,7 +12,7 @@ const InputWrap = styled.div`
   position: relative;
 
   input {
-    background: ${(props) => props.theme.colors.grayF2};
+    background: var(--grayF2);
     height: 4rem;
     border-radius: 0.8rem;
     padding: 1rem 1.6rem;
@@ -32,7 +32,8 @@ const InputWrap = styled.div`
   }
 
   &::placeholder {
-    color: ${(props) => props.theme.colors.gray78};
+    color: var(--gray78);
+    height: 4rem;
   }
 `;
 
@@ -51,7 +52,7 @@ export default function SearchBook() {
     }
   }, []);
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (searchValue === '') {
@@ -61,7 +62,7 @@ export default function SearchBook() {
     }
   };
 
-  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
   };
 

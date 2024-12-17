@@ -1,5 +1,6 @@
 import StarRating from 'components/common/StarRating';
 import styled from 'styled-components';
+import dummyIng from '../../../assets/image/dummyIng.png';
 
 const BookList = styled.ul`
   display: flex;
@@ -12,8 +13,6 @@ const BookList = styled.ul`
     @media (min-width: 500px) {
       width: calc((100% - 4.2rem) / 4);
     }
-    // 추후 .img 삭제
-    .img,
     img {
       background: #ccc; // 삭제
       height: 13rem;
@@ -29,6 +28,13 @@ const BookList = styled.ul`
       margin-top: 0.6rem;
       max-width: 100%;
     }
+
+    @media (max-width: 420px) {
+      .star-svg {
+        width: 2rem;
+        height: 2rem;
+      }
+    }
   }
 `;
 
@@ -36,8 +42,7 @@ export default function TabList() {
   return (
     <BookList>
       <li>
-        <div className='img'></div>
-        {/* <img src='' alt='' /> */}
+        <img src={dummyIng} alt='dummy' />
         <p className='title text_ellipsis'>
           책이름책이름책이름책이름책이름책이름책이름책이름
         </p>
@@ -45,8 +50,7 @@ export default function TabList() {
         <StarRating rating={3} />
       </li>
       <li>
-        <div className='img'></div>
-        {/* <img src='' alt='' /> */}
+        <img src={dummyIng} alt='dummy' />
         <p className='title text_ellipsis'>
           책이름책이름책이름책이름책이름책이름책이름책이름
         </p>
@@ -54,8 +58,7 @@ export default function TabList() {
         <StarRating rating={4} />
       </li>
       <li>
-        <div className='img'></div>
-        {/* <img src='' alt='' /> */}
+        <img src={dummyIng} alt='dummy' />
         <p className='title text_ellipsis'>
           책이름책이름책이름책이름책이름책이름책이름책이름
         </p>
@@ -63,8 +66,7 @@ export default function TabList() {
         <StarRating rating={2} />
       </li>
       <li>
-        <div className='img'></div>
-        {/* <img src='' alt='' /> */}
+        <img src={dummyIng} alt='dummy' />
         <p className='title text_ellipsis'>
           책이름책이름책이름책이름책이름책이름책이름책이름
         </p>

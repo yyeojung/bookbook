@@ -213,6 +213,15 @@ pre {
   white-space: pre-wrap;
   word-wrap: break-word;
 }
+input {
+  width: 100%;
+  height: 3.8rem;
+  padding: 1rem;
+  background: #fff;
+  color: var(--textColor);
+  border: 0.1rem solid var(--grayD5);
+  border-radius: 0.8rem;
+}
 /* 스크롤바 */
 ::-webkit-scrollbar {
   width: 0.6rem;
@@ -231,7 +240,24 @@ pre {
 /* css */
 :root {
   --card_shadow: 0.4rem 0.4rem 1rem 0 rgba(0, 0, 0, 0.1);
+  --textColor: #3c3c3c;
+  --gray78: #787878;
+  --grayD9: #d9d9d9;
+  --grayD5: #d5d5d5;
+  --grayF2: #f2f2f2;
+  --grayA3: #a3a3a3;
 }
+
+/* fontsize */
+.fs_14 {
+  font-size: 1.4rem;
+}
+
+/* color */
+.gray78 {
+  color: var(--gray78);
+}
+
 body {
   background-color: #fff;
 }
@@ -265,6 +291,9 @@ body {
 }
 .ReactModalPortal .default p {
   min-height: 6.6rem;
+  line-height: 1.5;
+  text-align: center;
+  word-break: keep-all;
 }
 .ReactModalPortal .btn_wrap {
   margin-top: 2rem;
@@ -272,7 +301,7 @@ body {
 }
 
 .ReactModal__Content {
-  overflow: inherit;
+  overflow: inherit !important;
 }
 
 /* contents */
@@ -305,9 +334,47 @@ body {
   height: 2rem;
   background: url('./assets/image/radio-default.svg') no-repeat center / contain;
 }
-@media (max-width: 420px) {
-  .star-svg {
-    width: 2rem;
-    height: 2rem;
-  }
+.btn_wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+}
+.tab_wrap {
+  background: var(--grayF2);
+  border-radius: 8px;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.tab_wrap li {
+  width: 50%;
+  height: 100%;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s all;
+}
+.tab_wrap li.active {
+  color: #fff;
+}
+.tab_wrap li:not(.bg) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+.tab_wrap li.bg {
+  position: absolute;
+  height: calc(100% - 0.4rem);
+  width: calc(50% - 0.4rem);
+  box-shadow: var(--card_shadow);
+}
+
+.tab_wrap li.bg.left {
+  transform: translateX(0.2rem);
+}
+.tab_wrap li.bg.right {
+  transform: translateX(calc(100% + 0.6rem));
 }
