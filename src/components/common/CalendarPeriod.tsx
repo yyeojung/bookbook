@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Calendar from './Calendar';
 import styled from 'styled-components';
 import ModalLayout from 'components/modal/ModalLayout';
@@ -10,10 +9,20 @@ const Wrap = styled.div`
   gap: 1rem;
 `;
 
-export default function CalendarPeriod() {
+interface CalendarPros {
+  startDate: Date | null;
+  setStartDate: (e: Date | null) => void;
+  endDate: Date | null;
+  setEndDate: (e: Date | null) => void;
+}
+
+export default function CalendarPeriod({
+  startDate,
+  setStartDate,
+  endDate,
+  setEndDate
+}: CalendarPros) {
   const { isModalOpen, openModal, closeModal } = useModal();
-  const [startDate, setStartDate] = useState<Date | null>(new Date());
-  const [endDate, setEndDate] = useState<Date | null>(new Date());
 
   //   날짜 비교
   const onChangeDate = (date: Date | null) => {
@@ -25,6 +34,7 @@ export default function CalendarPeriod() {
       setEndDate(date);
     }
   };
+
   return (
     <Wrap>
       <Calendar

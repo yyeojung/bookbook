@@ -1,22 +1,38 @@
-import { useState } from 'react';
 import { Rating } from 'react-simple-star-rating';
+import styled from 'styled-components';
 
 interface StarProps {
-  rating?: number;
+  rating: number;
   size?: number;
+  readonly?: boolean;
+  onChangeRating?: (rating: number) => void;
 }
-export default function StarRating({ rating, size }: StarProps) {
-  const [, setRating1] = useState(0);
-  const handleRating1 = (rate: number) => {
-    setRating1(rate);
+
+const StyledRating = styled(Rating)`
+  &.readonly {
+    pointer-events: none;
+  }
+`;
+
+export default function StarRating({
+  rating,
+  size,
+  readonly,
+  onChangeRating
+}: StarProps) {
+  const onClickRating = (rate: number) => {
+    if (!readonly && onChangeRating) {
+      onChangeRating(rate);
+    }
   };
+
   return (
-    <Rating
-      onClick={handleRating1}
+    <StyledRating
+      className={readonly ? 'readonly' : ''}
+      onClick={onClickRating}
       size={size ? size : 25}
       transition
       allowFraction
-      readonly={!!rating}
       initialValue={rating}
     />
   );

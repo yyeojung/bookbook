@@ -47,7 +47,7 @@ export default function TabList() {
           책이름책이름책이름책이름책이름책이름책이름책이름
         </p>
         <p className='sub_title mt_4'>자가 이름</p>
-        <StarRating rating={3} />
+        <StarRating readonly rating={3} />
       </li>
       <li>
         <img src={dummyIng} alt='dummy' />
@@ -55,7 +55,7 @@ export default function TabList() {
           책이름책이름책이름책이름책이름책이름책이름책이름
         </p>
         <p className='sub_title mt_4'>자가 이름</p>
-        <StarRating rating={4} />
+        <StarRating readonly rating={4} />
       </li>
       <li>
         <img src={dummyIng} alt='dummy' />
@@ -63,7 +63,7 @@ export default function TabList() {
           책이름책이름책이름책이름책이름책이름책이름책이름
         </p>
         <p className='sub_title mt_4'>자가 이름</p>
-        <StarRating rating={2} />
+        <StarRating readonly rating={2} />
       </li>
       <li>
         <img src={dummyIng} alt='dummy' />
@@ -71,7 +71,7 @@ export default function TabList() {
           책이름책이름책이름책이름책이름책이름책이름책이름
         </p>
         <p className='sub_title mt_4'>자가 이름</p>
-        <StarRating rating={2.5} />
+        <StarRating readonly rating={2.5} />
       </li>
     </BookList>
   );

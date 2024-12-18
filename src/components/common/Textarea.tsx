@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent } from 'react';
 import styled from 'styled-components';
 
 const TextBox = styled.div`
@@ -31,11 +31,16 @@ const TextBox = styled.div`
 interface TextProps {
   placeholder?: string;
   maxLength?: number;
+  text: string;
+  setText: (value: string) => void;
 }
 
-export default function Textarea({ placeholder, maxLength }: TextProps) {
-  const [text, setText] = useState('');
-
+export default function Textarea({
+  placeholder,
+  maxLength,
+  text,
+  setText
+}: TextProps) {
   const onChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
   };

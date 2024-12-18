@@ -45,7 +45,16 @@ export default function HomeRegister() {
   const [reading, setReading] = useState(false);
   const [pageBtn, setPageBtn] = useState(true);
   const [inputPage, setInputPage] = useState('0');
-  const [selectDate, setSelectDate] = useState<Date | null>(null);
+  const [review, setReview] = useState(''); // 한줄평
+  const [rating, setRating] = useState(0);
+  const [readingDate, setReadingDate] = useState<Date | null>(new Date());
+  const [startDate, setStartDate] = useState<Date | null>(new Date());
+  const [endDate, setEndDate] = useState<Date | null>(new Date());
+
+  // rating
+  const onChangeRating = (rate: number) => {
+    setRating(rate);
+  };
 
   // page
   const onClickPage = (e: boolean) => {
@@ -88,11 +97,22 @@ export default function HomeRegister() {
           // 읽은 책
           <>
             <p className='title'>독서 기간</p>
-            <CalendarPeriod />
+            <CalendarPeriod
+              startDate={startDate}
+              setStartDate={setStartDate}
+              endDate={endDate}
+              setEndDate={setEndDate}
+            />
             <p className='title'>평점</p>
-            <StarRating size={28} />
+            <StarRating
+              rating={rating}
+              onChangeRating={onChangeRating}
+              size={28}
+            />
             <p className='title'>한줄평</p>
             <Textarea
+              text={review}
+              setText={setReview}
               placeholder='짧은 감상평을 남겨보세요. (선택)'
               maxLength={200}
             />
@@ -102,13 +122,13 @@ export default function HomeRegister() {
           <>
             <p className='title'>독서 시작일</p>
             <Calendar
-              selectedDate={selectDate}
-              setSelectedDate={setSelectDate}
+              selectedDate={readingDate}
+              setSelectedDate={setReadingDate}
             />
             <p className='title'>독서 시작일</p>
             <BookPage>
               <input
-                type='text'
+                type='number'
                 value={inputPage}
                 onChange={(e) => setInputPage(e.target.value)}
               />

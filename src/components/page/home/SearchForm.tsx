@@ -37,7 +37,7 @@ const InputWrap = styled.div`
   }
 `;
 
-export default function SearchBook() {
+export default function SearchForm() {
   const [searchValue, setSearchValue] = useState('');
   const navigate = useNavigate();
 

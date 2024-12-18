@@ -24,7 +24,14 @@ const Flex = styled.div`
 
 export default function Styleguide() {
   const { isModalOpen, openModal, closeModal } = useModal();
+  const [rating, setRating] = useState(0);
+  const [startDate, setStartDate] = useState<Date | null>(new Date());
+  const [endDate, setEndDate] = useState<Date | null>(new Date());
 
+  // rating
+  const onChangeRating = (rate: number) => {
+    setRating(rate);
+  };
   const [selectDate, setSelectDate] = useState<Date | null>(null);
 
   const sampleOption = [
@@ -47,9 +54,9 @@ export default function Styleguide() {
       {/* star rating */}
       <h3>star rating</h3>
       <div>
-        <StarRating />
+        <StarRating rating={rating} onChangeRating={onChangeRating} />
       </div>
-      <StarRating rating={3} />
+      <StarRating readonly rating={3} />
 
       {/* sub header */}
       <h3>sub header</h3>
@@ -60,7 +67,12 @@ export default function Styleguide() {
       <Dropdown width='30rem' options={sampleOption} />
       <Dropdown width='30rem' options={selectYear()} />
       <Calendar selectedDate={selectDate} setSelectedDate={setSelectDate} />
-      <CalendarPeriod />
+      <CalendarPeriod
+        startDate={startDate}
+        setStartDate={setStartDate}
+        endDate={endDate}
+        setEndDate={setEndDate}
+      />
 
       {/* radio */}
       <h3>radio</h3>

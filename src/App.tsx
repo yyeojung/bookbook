@@ -46,8 +46,8 @@ function App() {
           <Routes>
             <Route path='/home' element={<Home />} />
             <Route path='/home/search' element={<HomeSearch />} />
-            <Route path='/home/detail' element={<HomeDetail />} />
-            <Route path='/home/register' element={<HomeRegister />} />
+            <Route path='/home/detail/:isbn' element={<HomeDetail />} />
+            <Route path='/home/register/:isbn' element={<HomeRegister />} />
             <Route path='/library' element={<Library />} />
             <Route path='/setting' element={<Setting />} />
             <Route path='/statistics' element={<Statistics />} />

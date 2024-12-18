@@ -1,28 +1,19 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 
-// 옵션 타입
-interface IntersectionOptions {
+interface IntersectionOptions extends IntersectionObserverInit {
   root?: Element | null;
   threshold?: number | number[];
   rootMargin?: string;
 }
 
-// 커스텀 훅의 반환 타입
-
-type UseIntersectReturn<T extends HTMLElement> = [
-  T | null,
-  (node: T | null) => void
-];
-
-// 커스텀 훅
 const useIntersect = <T extends HTMLElement>(
   onIntersect: (
     entry: IntersectionObserverEntry,
     observer: IntersectionObserver
   ) => void,
   option: IntersectionOptions = {}
-): UseIntersectReturn<T> => {
-  const [ref, setRef] = useState<T | null>(null);
+): React.RefObject<T> => {
+  const ref = useRef<T>(null);
 
   const defaultOption: IntersectionOptions = {
     root: null,
@@ -40,22 +31,21 @@ const useIntersect = <T extends HTMLElement>(
   );
 
   useEffect(() => {
-    let observer: IntersectionObserver;
+    const observer = new IntersectionObserver(checkIntersect, {
+      ...defaultOption,
+      ...option
+    });
 
-    if (ref) {
-      observer = new IntersectionObserver(checkIntersect, {
-        ...defaultOption,
-        ...option
-      });
-      observer.observe(ref);
+    if (ref.current) {
+      observer.observe(ref.current);
     }
 
     return () => {
-      if (observer) observer.disconnect();
+      observer.disconnect();
     };
-  }, [ref, option.root, option.threshold, option.rootMargin, checkIntersect]);
+  }, [option.root, option.threshold, option.rootMargin, checkIntersect]);
 
-  return [ref, setRef];
+  return ref;
 };
 
 export default useIntersect;

@@ -3,7 +3,7 @@ import { GoTriangleDown } from 'react-icons/go';
 import { useState } from 'react';
 import TabBuild from 'components/page/home/TabBuild';
 import TabList from 'components/page/home/TabList';
-import SearchBook from 'components/page/home/SearchBook';
+import SearchForm from 'components/page/home/SearchForm';
 import { useModal } from 'hook/useModal';
 import ModalHomeView from 'components/modal/ModalHomeView';
 
@@ -48,7 +48,7 @@ export default function Home() {
   };
   return (
     <Wrap>
-      <SearchBook />
+      <SearchForm />
       <button className='show_text' onClick={() => openModal('all-view')}>
         전체 보기 (0)
         <GoTriangleDown />

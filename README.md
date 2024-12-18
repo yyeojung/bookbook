@@ -1,10 +1,22 @@
+## 241218
+
+- types 도서 타입 정리
+- 로딩 컴포넌트 추가
+- 상품 조회 api 가져오기
+
+참고: https://blog.aladin.co.kr/openapi/category/29154402?communitytype=MyPaper
+
+- 무한 스크롤 구현하기
+
+참고: https://velog.io/@yunsungyang-omc/React-%EB%AC%B4%ED%95%9C-%EC%8A%A4%ED%81%AC%EB%A1%A4-%EA%B8%B0%EB%8A%A5-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0-used-by-Intersection-Observer-2
+
 ## 241217
 
 - 홈화면 UI 완료
 
 ## 241216
 
-- themes.ts colors 삭제
+- themes.ts colors 삭제<br/>
   공통 컬러 app.css :root로 관리
 
 ## 241213 라이브러리 사용하기
@@ -31,4 +43,4 @@ components/common/StarRating.tsx
 처음엔 https://cors-anywhere.herokuapp.com/ 을 이용했으나 일시적으로만 사용 가능한 방법이라
 heroku 주소를 받아 해결.
 
-출처: https://codemasterkimc.tistory.com/128
+참고: https://codemasterkimc.tistory.com/128
