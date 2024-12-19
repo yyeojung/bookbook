@@ -13,6 +13,9 @@ const StyledPicker = styled.div`
   /* Wrapper Styling */
   .react-datepicker-wrapper {
     width: 100%;
+    border: 0.1rem solid var(--grayD9);
+    border-radius: 0.8rem;
+    background: #fff;
   }
 
   /* Input Styling */
@@ -31,6 +34,7 @@ const StyledPicker = styled.div`
 
   input {
     background: transparent;
+    border: none;
     cursor: pointer;
 
     &:focus {

@@ -6,7 +6,10 @@ import StarRating from 'components/common/StarRating';
 import SubHeader from 'components/common/SubHeader';
 import Textarea from 'components/common/Textarea';
 import { ChangeEvent, FormEvent, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useLibraryStore } from 'store/useLibraryStore';
 import styled from 'styled-components';
+import { LibraryBook } from 'types/bookData';
 
 const Contents = styled.form`
   padding: 2rem;
@@ -42,14 +45,18 @@ const BookPage = styled.div`
 `;
 
 export default function HomeRegister() {
-  const [reading, setReading] = useState(false);
-  const [pageBtn, setPageBtn] = useState(true);
-  const [inputPage, setInputPage] = useState('0');
+  const location = useLocation();
+  const { state } = location;
+  const [readFinish, setReadFinish] = useState(true); // 읽은 책, 읽고 있는 책
+  const [pageBtn, setPageBtn] = useState(true); // 읽고 있는 책 쪽, %
+  const [inputPage, setInputPage] = useState<number>(); // 읽고 있는 책 페이지
   const [review, setReview] = useState(''); // 한줄평
   const [rating, setRating] = useState(0);
   const [readingDate, setReadingDate] = useState<Date | null>(new Date());
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [endDate, setEndDate] = useState<Date | null>(new Date());
+  const navigate = useNavigate();
+  const { addBook } = useLibraryStore();
 
   // rating
   const onChangeRating = (rate: number) => {
@@ -63,16 +70,40 @@ export default function HomeRegister() {
 
   // radio
   const onChangeRadio = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value === 'reading') {
-      setReading(true);
+    if (e.target.value === 'finish') {
+      setReadFinish(true);
     } else {
-      setReading(false);
+      setReadFinish(false);
     }
   };
 
   // submit
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const bookData: LibraryBook = {
+      bookState: readFinish,
+      startDate: readFinish ? startDate : readingDate,
+      endDate: readFinish ? endDate : null,
+      starRating: readFinish ? rating : undefined,
+      review: readFinish ? review : null,
+      pagePercent: !readFinish ? !pageBtn : null,
+      pageNum: !readFinish ? (inputPage ? inputPage : 0) : null,
+
+      // 책 정보
+      title: state.title,
+      cover: state.cover,
+      author: state.author,
+      itemPage: state.subInfo.itemPage,
+      link: state.link,
+      description: state.description,
+      publisher: state.publisher,
+      isbn: state.isbn,
+      isbn13: state.isbn13
+    };
+
+    addBook(bookData);
+    navigate(-2);
   };
   return (
     <>
@@ -82,18 +113,14 @@ export default function HomeRegister() {
         <div className='radio_wrap'>
           <RadioBtn
             name='read'
+            value='finish'
             text='읽은 책'
             onChange={onChangeRadio}
             defaultChecked
           />
-          <RadioBtn
-            name='read'
-            value='reading'
-            text='읽고 있는 책'
-            onChange={onChangeRadio}
-          />
+          <RadioBtn name='read' text='읽고 있는 책' onChange={onChangeRadio} />
         </div>
-        {!reading ? (
+        {readFinish ? (
           // 읽은 책
           <>
             <p className='title'>독서 기간</p>
@@ -125,12 +152,15 @@ export default function HomeRegister() {
               selectedDate={readingDate}
               setSelectedDate={setReadingDate}
             />
-            <p className='title'>독서 시작일</p>
+            <p className='title'>독서량</p>
             <BookPage>
               <input
                 type='number'
                 value={inputPage}
-                onChange={(e) => setInputPage(e.target.value)}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  setInputPage(Number(e.target.value))
+                }
+                placeholder='0'
               />
               <ul className='tab_wrap'>
                 <li

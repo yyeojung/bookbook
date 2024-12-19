@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const TextBox = styled.div`
   width: 100%;
   height: 21rem;
-  padding: 1.6rem;
+  padding: 1.6rem 1.6rem 2.8rem 1.6rem;
   border: 0.1rem solid var(--grayD5);
   background: #fff;
   border-radius: 0.8rem;

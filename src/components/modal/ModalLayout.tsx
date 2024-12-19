@@ -1,4 +1,5 @@
 import Button from 'components/common/Button';
+import { ReactNode } from 'react';
 import ReactModal from 'react-modal';
 
 const customModalStyles: ReactModal.Styles = {
@@ -32,7 +33,7 @@ const customModalStyles: ReactModal.Styles = {
 interface ModalProps {
   isOpen: boolean;
   type?: string;
-  message?: string;
+  message?: ReactNode | string;
   onClose: () => void;
   onClick?: () => void;
   title?: string;

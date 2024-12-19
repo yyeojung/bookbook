@@ -39,7 +39,6 @@ const StyledSelect = styled(Select)<{ width?: string }>`
     border-radius: 0.8rem;
     border: 0.1rem solid #d5d5d5;
     box-shadow: 0 1rem 2rem 0 rgba(0, 0, 0, 0.08);
-    padding: 1rem;
     font-weight: 600;
 
     .custom__menu-list {
@@ -47,6 +46,7 @@ const StyledSelect = styled(Select)<{ width?: string }>`
       display: flex;
       flex-direction: column;
       gap: 0.4rem;
+      padding: 1rem;
     }
 
     .custom__option {

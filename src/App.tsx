@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import { themes } from './assets/style/theme';
 import './App.css';
 import Home from 'page/Home';
@@ -27,10 +27,15 @@ const Delete = styled.div`
 `;
 function App() {
   const [currentTheme, setCurrentTheme] = useState(themes['pink']);
+  const location = useLocation();
 
   const onClickTheme = (themeName: keyof typeof themes) => {
     setCurrentTheme(themes[themeName]);
   };
+
+  // 메뉴 숨기는 화면
+  const hidePath = ['/'];
+  const isMenuHide = !hidePath.includes(location.pathname);
 
   return (
     <ThemeProvider theme={currentTheme}>
@@ -41,21 +46,19 @@ function App() {
           <button onClick={() => onClickTheme('blue')}> bl</button>
           <button onClick={() => onClickTheme('yellow')}> ye</button>
         </Delete>
-        <Router basename={process.env.PUBLIC_URL}>
-          <Menu />
-          <Routes>
-            <Route path='/home' element={<Home />} />
-            <Route path='/home/search' element={<HomeSearch />} />
-            <Route path='/home/detail/:isbn' element={<HomeDetail />} />
-            <Route path='/home/register/:isbn' element={<HomeRegister />} />
-            <Route path='/library' element={<Library />} />
-            <Route path='/setting' element={<Setting />} />
-            <Route path='/statistics' element={<Statistics />} />
-            <Route path='/login' element={<Login />} />
-            {/* styleguide */}
-            <Route path='/styleguide' element={<Styleguide />} />
-          </Routes>
-        </Router>
+        {isMenuHide && <Menu />}
+        <Routes>
+          <Route path='/home' element={<Home />} />
+          <Route path='/home/search' element={<HomeSearch />} />
+          <Route path='/home/detail/:isbn' element={<HomeDetail />} />
+          <Route path='/home/register/:isbn' element={<HomeRegister />} />
+          <Route path='/library' element={<Library />} />
+          <Route path='/setting' element={<Setting />} />
+          <Route path='/statistics' element={<Statistics />} />
+          <Route path='/' element={<Login />} />
+          {/* styleguide */}
+          <Route path='/styleguide' element={<Styleguide />} />
+        </Routes>
       </div>
     </ThemeProvider>
   );

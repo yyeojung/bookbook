@@ -42,6 +42,7 @@ export default function Styleguide() {
     { value: '나쵸', label: '나쵸' },
     { value: '피자', label: '피자' }
   ];
+
   return (
     <Wrap>
       {/* button */}
@@ -100,6 +101,7 @@ export default function Styleguide() {
         message='confirm입니더'
         isOpen={isModalOpen === 'style-confirm'}
         onClose={closeModal}
+        onClick={() => console.log('click')}
       />
       <ModalLayout
         isOpen={isModalOpen === 'style-modal'}

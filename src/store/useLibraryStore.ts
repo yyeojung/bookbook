@@ -1,22 +1,6 @@
+import { LibraryData } from 'types/bookData';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-
-interface LibraryData {
-  books: LibraryBook[];
-  addBook: (data: LibraryBook) => void;
-  deleteBook: (bookId: string) => void;
-}
-
-interface LibraryBook {
-  bookState: boolean;
-  id: string;
-  startDate: string;
-  pagePercent?: boolean;
-  endDate?: string | null;
-  starRating?: number | null;
-  review?: string | null;
-  pageNum?: number | null;
-}
 
 // 데이터 유지: persist 추가 (로컬스토리지에 저장)
 
@@ -24,25 +8,50 @@ const useLibraryStore = create<LibraryData>()(
   persist(
     (set) => ({
       books: [],
-      addBook: (data: LibraryBook) =>
-        set((state) => ({
-          books: [
+      readBooks: [],
+      readingBooks: [],
+      addBook: (data) =>
+        set((state) => {
+          const updateBooks = [
             ...state.books,
             {
               bookState: data.bookState,
-              id: data.id,
               startDate: data.startDate,
-              endDate: data.bookState ? data.endDate : null,
-              starRating: data.bookState ? data.starRating : null,
-              review: data.bookState ? data.review : null,
+              endDate: data.endDate,
+              starRating: data.starRating,
+              review: data.review,
               pagePercent: data.pagePercent,
-              pageNum: !data.bookState ? data.pageNum : null
+              pageNum: data.pageNum,
+              // 책 정보
+              title: data.title,
+              cover: data.cover,
+              author: data.author,
+              itemPage: data.itemPage,
+              link: data.link,
+              description: data.description,
+              publisher: data.publisher,
+              isbn: data.isbn,
+              isbn13: data.isbn13
             }
-          ]
-        })),
+          ];
+
+          // 책 update
+          const readBooks = updateBooks.filter(
+            (book) => book.bookState === true
+          );
+          const readingBooks = updateBooks.filter(
+            (book) => book.bookState === false
+          );
+
+          return {
+            books: updateBooks,
+            readBooks: readBooks,
+            readingBooks: readingBooks
+          };
+        }),
       deleteBook: (bookId: string) =>
         set((state) => ({
-          books: state.books.filter((book) => book.id !== bookId)
+          books: state.books.filter((book) => book.isbn13 !== bookId)
         }))
     }),
     { name: 'library' } // 로컬 스토리지에 'library'라는 키로 저장

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { IoChatbubbleSharp } from 'react-icons/io5';
 
 import LoginImg from '../assets/image/book.png';
+import { Link } from 'react-router-dom';
 
 const Wrap = styled.div`
   background: #f9c2ba;
@@ -30,36 +30,13 @@ const Wrap = styled.div`
   }
 `;
 
-const KakaoLogin = styled.button`
-  background: #ffea28;
-  width: 31rem;
-  height: 5.2rem;
-  border-radius: 1.2rem;
-  color: #371d1e;
-  font-weight: 800;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  margin: 10rem auto 0;
-
-  svg {
-    width: 2rem;
-    height: 2rem;
-  }
-`;
-
 export default function Login() {
   return (
     <Wrap>
       <h2>책을 쌓아서 기록하자!</h2>
       <h1>북적북적</h1>
       <img src={LoginImg} alt='loginImg' />
-
-      <KakaoLogin>
-        <IoChatbubbleSharp />
-        카카오톡으로 시작하기
-      </KakaoLogin>
+      <Link to='/home'>홈으로 이동</Link>
     </Wrap>
   );
 }

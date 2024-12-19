@@ -5,6 +5,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import useBookStore from 'store/useBookStore';
 import { useEffect, useState } from 'react';
 import Loading from 'components/common/Loading';
+import { useLibraryStore } from 'store/useLibraryStore';
+import { useModal } from 'hook/useModal';
+import ModalLayout from 'components/modal/ModalLayout';
 
 const BookCover = styled.div`
   padding: 1rem 2rem 2rem;
@@ -60,6 +63,8 @@ export default function HomeDetail() {
   const { isbn } = useParams();
   const { bookData, fetchBookData } = useBookStore();
   const [loading, setLoading] = useState(true);
+  const { books } = useLibraryStore();
+  const { isModalOpen, openModal, closeModal } = useModal();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -77,7 +82,17 @@ export default function HomeDetail() {
 
   // 저장 이벤트
   const onClickSave = () => {
-    navigate(`/home/register/${isbn}`);
+    const sameId = books.filter((book) => book.isbn13 === isbn);
+    if (sameId.length > 0) {
+      openModal('re-save');
+    } else {
+      navigate(`/home/register/${isbn}`, { state: bookData?.[0] });
+    }
+  };
+
+  // 재저장 이벤트
+  const onClickReSave = () => {
+    navigate(`/home/register/${isbn}`, { state: bookData?.[0] });
   };
 
   return (
@@ -91,7 +106,7 @@ export default function HomeDetail() {
             <p className='title'>{bookData[0].title}</p>
             <img src={bookData[0].cover} alt={bookData[0].title} />
             <p className='fs_14 gray78'>
-              {bookData[0].author} ({bookData[0].subInfo.itemPage}p)
+              {bookData[0].author} ({bookData[0].subInfo?.itemPage}p)
             </p>
             <a
               href={bookData[0].link}
@@ -111,7 +126,7 @@ export default function HomeDetail() {
               {bookData[0].isbn} {bookData[0].isbn13}
             </p>
             <strong>페이지</strong>
-            <p>{bookData[0].subInfo.itemPage}</p>
+            <p>{bookData[0].subInfo?.itemPage}</p>
             <div className='btn'>
               <Button onClick={onClickSave} width={100} text='저장' />
             </div>
@@ -120,12 +135,18 @@ export default function HomeDetail() {
       )}
 
       {/* 이미 등록한 책 confirm */}
-      {/* <ModalLayout
+      <ModalLayout
         type='confirm'
-        message='confirm입니더'
-        isOpen={isModalOpen === 're-register'}
+        message={
+          <>
+            저장하려는 책이 이미 존재해요! <br />
+            다시 저장할까요?
+          </>
+        }
+        isOpen={isModalOpen === 're-save'}
+        onClick={onClickReSave}
         onClose={closeModal}
-      /> */}
+      />
     </>
   );
 }

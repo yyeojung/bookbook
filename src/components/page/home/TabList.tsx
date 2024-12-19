@@ -1,20 +1,28 @@
 import StarRating from 'components/common/StarRating';
 import styled from 'styled-components';
-import dummyIng from '../../../assets/image/dummyIng.png';
+import { useLibraryStore } from 'store/useLibraryStore';
+import { Link } from 'react-router-dom';
 
 const BookList = styled.ul`
   display: flex;
   gap: 1.4rem;
   flex-wrap: wrap;
+  max-height: 100%;
+
   li {
     width: calc((100% - 2.8rem) / 3);
     cursor: pointer;
+
+    a {
+      display: block;
+      height: 100%;
+    }
 
     @media (min-width: 500px) {
       width: calc((100% - 4.2rem) / 4);
     }
     img {
-      background: #ccc; // 삭제
+      width: 100%;
       height: 13rem;
       border-radius: 0.8rem;
       object-fit: fill;
@@ -39,40 +47,23 @@ const BookList = styled.ul`
 `;
 
 export default function TabList() {
+  const { readBooks } = useLibraryStore();
+
   return (
     <BookList>
-      <li>
-        <img src={dummyIng} alt='dummy' />
-        <p className='title text_ellipsis'>
-          책이름책이름책이름책이름책이름책이름책이름책이름
-        </p>
-        <p className='sub_title mt_4'>자가 이름</p>
-        <StarRating readonly rating={3} />
-      </li>
-      <li>
-        <img src={dummyIng} alt='dummy' />
-        <p className='title text_ellipsis'>
-          책이름책이름책이름책이름책이름책이름책이름책이름
-        </p>
-        <p className='sub_title mt_4'>자가 이름</p>
-        <StarRating readonly rating={4} />
-      </li>
-      <li>
-        <img src={dummyIng} alt='dummy' />
-        <p className='title text_ellipsis'>
-          책이름책이름책이름책이름책이름책이름책이름책이름
-        </p>
-        <p className='sub_title mt_4'>자가 이름</p>
-        <StarRating readonly rating={2} />
-      </li>
-      <li>
-        <img src={dummyIng} alt='dummy' />
-        <p className='title text_ellipsis'>
-          책이름책이름책이름책이름책이름책이름책이름책이름
-        </p>
-        <p className='sub_title mt_4'>자가 이름</p>
-        <StarRating readonly rating={2.5} />
-      </li>
+      {readBooks
+        .slice()
+        .reverse()
+        .map((book) => (
+          <li key={book.isbn13}>
+            <Link to='/home'>
+              <img src={book.cover} alt={book.isbn13} />
+              <p className='title text_ellipsis'>{book.title}</p>
+              <p className='sub_title mt_4 text_ellipsis'>{book.author}</p>
+              <StarRating readonly rating={book.starRating} />
+            </Link>
+          </li>
+        ))}
     </BookList>
   );
 }

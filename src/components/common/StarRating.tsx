@@ -2,7 +2,7 @@ import { Rating } from 'react-simple-star-rating';
 import styled from 'styled-components';
 
 interface StarProps {
-  rating: number;
+  rating: number | undefined;
   size?: number;
   readonly?: boolean;
   onChangeRating?: (rating: number) => void;

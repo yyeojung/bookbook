@@ -1,11 +1,15 @@
 import styled from 'styled-components';
-import test from '../../../assets/image/character/book-icon-01.png';
+import { useLibraryStore } from 'store/useLibraryStore';
+import { homeIcon } from 'data/homeCharacter';
+import { Link } from 'react-router-dom';
 
 const Wrap = styled.div`
   position: absolute;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
+  max-height: 100%;
+  padding-top: 10rem;
 
   .book_height {
     display: flex;
@@ -61,14 +65,18 @@ const BookList = styled.ul`
     min-width: 18rem;
     max-width: 20rem;
     min-height: 2rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    padding: 0.4rem 1rem;
     border-radius: 0.8rem;
-    text-align: center;
     color: #fff;
-    font-size: 1.4rem;
+
+    a {
+      font-size: 1.4rem;
+      padding: 0.4rem 1rem;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
     &:nth-child(4n) {
       background: ${(props) => props.theme.mainColor};
@@ -91,27 +99,36 @@ const BookList = styled.ul`
 `;
 
 export default function TabBuild() {
-  const dummy = [
-    '책이름',
-    '책이름',
-    '홍학의 자리',
-    '홍학의 자리',
-    '홍학의 자리',
-    '홍학의 자리',
-    '홍학의 자리',
-    '홍학의 자리',
-    '홍학의 자리홍학의 자리홍학의 자리홍학의 자리홍학의 자리홍학의 자리'
-  ];
+  const { readBooks } = useLibraryStore();
+
+  const totalPage = readBooks
+    .map((book) => book.itemPage)
+    .reduce((acc: number, cur: number | undefined) => acc + (cur || 0), 0);
+  const totalPageCm = (totalPage * 0.005).toFixed(2);
+  const selectIcon = homeIcon(parseFloat(totalPageCm));
+
   return (
     <Wrap>
       <div className='book_height'>
-        <p>13.8cm</p>
-        <img src={test} alt='test' />
+        <p>{totalPageCm}cm</p>
+        <img src={selectIcon} alt='test' />
       </div>
       <BookList>
-        {dummy.map((name, i) => (
-          <li key={i}>{name}</li>
-        ))}
+        {readBooks
+          .slice()
+          .reverse()
+          .map((book) => (
+            <li
+              style={{
+                height: `${0.01 * (book.itemPage ?? 200)}rem` // 동적으로 계산된 높이
+              }}
+              key={book.isbn13}
+            >
+              <Link to='/'>
+                <span className='text_ellipsis'>{book.title}</span>
+              </Link>
+            </li>
+          ))}
       </BookList>
     </Wrap>
   );
