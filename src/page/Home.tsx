@@ -6,7 +6,10 @@ import TabList from 'components/page/home/TabList';
 import SearchForm from 'components/page/home/SearchForm';
 import { useModal } from 'hook/useModal';
 import ModalHomeView from 'components/modal/ModalHomeView';
-import { useLibraryStore } from 'store/useLibraryStore';
+import { useReadBook } from 'hook/useReadBook';
+import NoBook from 'components/common/NoBook';
+import { useViewStore } from 'store/useViewStore';
+import { useSelectStore } from 'store/useSelectStore';
 
 const Wrap = styled.div`
   .show_text {
@@ -42,9 +45,11 @@ const HomeTop = styled.div`
 `;
 
 export default function Home() {
-  const { readBooks } = useLibraryStore();
+  const { filterBooks } = useReadBook();
   const [tabBuild, setTabBuild] = useState(true);
   const { isModalOpen, openModal, closeModal } = useModal();
+  const { isView } = useViewStore();
+  const { selectOption } = useSelectStore();
 
   const onClickTab = (e: boolean) => {
     setTabBuild(e);
@@ -53,12 +58,27 @@ export default function Home() {
   const onClickModal = () => {
     closeModal();
   };
+
+  const selectYear = selectOption.filter((opt) => opt.name === 'year');
+  const selectMonth = selectOption.filter((opt) => opt.name === 'month');
+
+  // 보기 타이틀
+  let viewText = '전체 보기';
+  if (isView !== 'all') {
+    if (selectMonth[0].value === '전체') {
+      viewText = `${selectYear[0].value}년 전체`;
+    } else {
+      viewText = `${selectYear[0].value}년 ${selectMonth[0].value}월`;
+    }
+  }
+
+
   return (
     <Wrap>
       <HomeTop>
         <SearchForm />
         <button className='show_text' onClick={() => openModal('all-view')}>
-          전체 보기 ({readBooks.length})
+          {viewText} ({filterBooks.length})
           <GoTriangleDown />
         </button>
         <ul className='tab_wrap'>
@@ -78,19 +98,15 @@ export default function Home() {
         </ul>
       </HomeTop>
       <div className='tab_contents'>
-        {/* 데이터 없을시 */}
-        {readBooks ? (
+        {filterBooks.length > 0 ? (
           tabBuild ? (
             <TabBuild />
           ) : (
             <TabList />
           )
         ) : (
-          <p>
-            읽은 책이 없습니다.
-            <br />
-            책을 추가해보세요 :&#41;
-          </p>
+          // 데이터 없을시
+          <NoBook />
         )}
       </div>
 

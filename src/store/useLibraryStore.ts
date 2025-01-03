@@ -8,11 +8,9 @@ const useLibraryStore = create<LibraryData>()(
   persist(
     (set) => ({
       books: [],
-      readBooks: [],
-      readingBooks: [],
       addBook: (data) =>
-        set((state) => {
-          const updateBooks = [
+        set((state) => ({
+          books: [
             ...state.books,
             {
               bookState: data.bookState,
@@ -33,22 +31,8 @@ const useLibraryStore = create<LibraryData>()(
               isbn: data.isbn,
               isbn13: data.isbn13
             }
-          ];
-
-          // 책 update
-          const readBooks = updateBooks.filter(
-            (book) => book.bookState === true
-          );
-          const readingBooks = updateBooks.filter(
-            (book) => book.bookState === false
-          );
-
-          return {
-            books: updateBooks,
-            readBooks: readBooks,
-            readingBooks: readingBooks
-          };
-        }),
+          ]
+        })),
       deleteBook: (bookId: string) =>
         set((state) => ({
           books: state.books.filter((book) => book.isbn13 !== bookId)

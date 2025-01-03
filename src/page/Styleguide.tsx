@@ -65,8 +65,8 @@ export default function Styleguide() {
 
       {/* form */}
       <h3>form</h3>
-      <Dropdown width='30rem' options={sampleOption} />
-      <Dropdown width='30rem' options={selectYear()} />
+      <Dropdown name='sample' width='30rem' options={sampleOption} />
+      <Dropdown name='sample' width='30rem' options={selectYear()} />
       <Calendar selectedDate={selectDate} setSelectedDate={setSelectDate} />
       <CalendarPeriod
         startDate={startDate}

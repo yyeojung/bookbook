@@ -17,8 +17,6 @@ export interface BookData {
 // 서재 저장 데이터
 export interface LibraryData {
   books: LibraryBook[];
-  readBooks: LibraryBook[];
-  readingBooks: LibraryBook[];
   addBook: (data: LibraryBook) => void;
   deleteBook: (bookId: string) => void;
 }

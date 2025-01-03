@@ -9,7 +9,7 @@ const Contents = styled.div`
   margin-top: 1rem;
   padding: 0 2rem 2rem;
   overflow-y: auto;
-  max-height: calc(100vh - 17rem);
+  max-height: calc(100vh - 18rem);
 `;
 
 const BookList = styled.ul`

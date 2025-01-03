@@ -1,7 +1,7 @@
 import StarRating from 'components/common/StarRating';
 import styled from 'styled-components';
-import { useLibraryStore } from 'store/useLibraryStore';
 import { Link } from 'react-router-dom';
+import { useReadBook } from 'hook/useReadBook';
 
 const BookList = styled.ul`
   display: flex;
@@ -47,15 +47,15 @@ const BookList = styled.ul`
 `;
 
 export default function TabList() {
-  const { readBooks } = useLibraryStore();
+  const { filterBooks } = useReadBook();
 
   return (
     <BookList>
-      {readBooks
+      {filterBooks
         .slice()
         .reverse()
-        .map((book) => (
-          <li key={book.isbn13}>
+        .map((book, index) => (
+          <li key={`${book.isbn13}${index}`}>
             <Link to='/home'>
               <img src={book.cover} alt={book.isbn13} />
               <p className='title text_ellipsis'>{book.title}</p>

@@ -1,4 +1,5 @@
-import Select from 'react-select';
+import Select, { SingleValue } from 'react-select';
+import { useSelectStore } from 'store/useSelectStore';
 import styled from 'styled-components';
 
 interface Option {
@@ -8,8 +9,9 @@ interface Option {
 interface DropdownProps {
   options: Option[];
   width?: string;
+  name: string;
 }
-const StyledSelect = styled(Select)<{ width?: string }>`
+const StyledSelect = styled(Select<Option>)<{ width?: string }>`
   width: ${(props) => props.width || '100%'};
   // 드롭다운 박스
   .custom__control {
@@ -64,15 +66,24 @@ const StyledSelect = styled(Select)<{ width?: string }>`
   }
 `;
 
-export default function Dropdown({ options, width }: DropdownProps) {
+export default function Dropdown({ options, width, name }: DropdownProps) {
+  const { selectOption, setSelectOption } = useSelectStore();
+
+  const currentValue =
+    selectOption.find((opt) => opt.name === name)?.value || options[0];
+
   return (
     <StyledSelect
       options={options}
       isSearchable={false} // 검색 기능 비활성화
       // menuIsOpen={true} 메뉴 항상 오픈
       classNamePrefix='custom'
-      defaultValue={options[0]}
+      defaultValue={options.find((opt) => opt.value === currentValue)}
       width={width}
+      name={name}
+      onChange={(option: SingleValue<Option>) => {
+        setSelectOption(name, option?.value || '');
+      }}
     />
   );
 }

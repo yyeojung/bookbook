@@ -7,13 +7,16 @@ import { NavLink } from 'react-router-dom';
 const MenuWrap = styled.nav`
   position: fixed;
   bottom: 0;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
   width: 100%;
+  max-width: 60rem;
   height: 6rem;
   background: #fafafa;
   border-top: 0.1rem solid #d9d9d9;
   padding: 0 2rem;
   box-shadow: 0 -0.4rem 2rem 0 rgba(0, 0, 0, 0.08);
+  z-index: 10;
 `;
 
 const MenuList = styled.ul`

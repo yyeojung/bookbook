@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { useLibraryStore } from 'store/useLibraryStore';
 import { homeIcon } from 'data/homeCharacter';
 import { Link } from 'react-router-dom';
+import { useReadBook } from 'hook/useReadBook';
 
 const Wrap = styled.div`
   position: absolute;
@@ -99,9 +99,9 @@ const BookList = styled.ul`
 `;
 
 export default function TabBuild() {
-  const { readBooks } = useLibraryStore();
+  const { filterBooks } = useReadBook();
 
-  const totalPage = readBooks
+  const totalPage = filterBooks
     .map((book) => book.itemPage)
     .reduce((acc: number, cur: number | undefined) => acc + (cur || 0), 0);
   const totalPageCm = (totalPage * 0.005).toFixed(2);
@@ -114,15 +114,15 @@ export default function TabBuild() {
         <img src={selectIcon} alt='test' />
       </div>
       <BookList>
-        {readBooks
+        {filterBooks
           .slice()
           .reverse()
-          .map((book) => (
+          .map((book, index) => (
             <li
               style={{
                 height: `${0.01 * (book.itemPage ?? 200)}rem` // 동적으로 계산된 높이
               }}
-              key={book.isbn13}
+              key={`${book.isbn13}-${index}`}
             >
               <Link to='/'>
                 <span className='text_ellipsis'>{book.title}</span>

@@ -232,6 +232,9 @@ input[type='number'] {
   -moz-appearance: textfield;
 }
 /* 스크롤바 */
+.scroll {
+  overflow-y: auto;
+}
 ::-webkit-scrollbar {
   width: 0.6rem;
 }
@@ -257,16 +260,6 @@ input[type='number'] {
   --grayA3: #a3a3a3;
 }
 
-/* fontsize */
-.fs_14 {
-  font-size: 1.4rem;
-}
-
-/* color */
-.gray78 {
-  color: var(--gray78);
-}
-
 body {
   background-color: #fff;
 }
@@ -277,15 +270,40 @@ body {
   min-height: 100vh;
 }
 
+/* fontsize */
+.fs_14 {
+  font-size: 1.4rem;
+}
+
+/* color */
+.gray78 {
+  color: var(--gray78);
+}
+
 /* margin */
 .mt_4 {
   margin-top: 0.4rem;
 }
 
+/* common */
 .text_ellipsis {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+.sr_only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.d_block {
+  display: block;
 }
 
 /* modal */
@@ -322,17 +340,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-.sr_only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
 }
 .empty_text {
   text-align: center;
