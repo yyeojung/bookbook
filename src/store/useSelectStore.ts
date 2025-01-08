@@ -2,32 +2,32 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 interface Option {
-  name: string;
+  label: string;
   value: string;
 }
 interface SelectStore {
   selectOption: Option[];
-  setSelectOption: (name: string, value: string) => void;
+  setSelectOption: (label: string, value: string) => void;
 }
 
 const useSelectStore = create<SelectStore>()(
   persist(
     (set) => ({
       selectOption: [],
-      setSelectOption: (name, value) =>
+      setSelectOption: (label, value) =>
         set((state) => {
-          if (!name) return state;
+          if (!label) return state;
 
           const existingIndex = state.selectOption.findIndex(
-            (opt) => opt.name === name
+            (opt) => opt.label === label
           );
 
           if (existingIndex !== -1) {
             const updatedOption = [...state.selectOption];
-            updatedOption[existingIndex] = { name, value };
+            updatedOption[existingIndex] = { label, value };
             return { selectOption: updatedOption };
           } else {
-            return { selectOption: [...state.selectOption, { name, value }] };
+            return { selectOption: [...state.selectOption, { label, value }] };
           }
         })
     }),

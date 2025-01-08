@@ -9,7 +9,12 @@ import { useLibraryStore } from 'store/useLibraryStore';
 import { useModal } from 'hook/useModal';
 import ModalLayout from 'components/modal/ModalLayout';
 
-const BookCover = styled.div`
+export const BookDetail = styled.div`
+  max-height: calc(100vh - 12rem);
+  overflow-y: auto;
+`;
+
+export const BookCover = styled.div`
   padding: 1rem 2rem 2rem;
   text-align: center;
   border-bottom: 0.1rem solid var(--grayD9);
@@ -21,8 +26,6 @@ const BookCover = styled.div`
   img {
     width: 13rem;
     height: 16rem;
-    object-fit: fill;
-    border-radius: 0.8rem;
     margin: 2rem auto 1rem;
   }
 
@@ -36,7 +39,7 @@ const BookCover = styled.div`
     text-underline-offset: 0.3rem;
   }
 `;
-const BookInfo = styled.div`
+export const BookInfo = styled.div`
   padding: 2rem;
 
   strong {
@@ -54,8 +57,9 @@ const BookInfo = styled.div`
   }
 
   .btn {
-    text-align: center;
     margin-top: 2rem;
+    display: flex;
+    justify-content: center;
   }
 `;
 
@@ -79,6 +83,9 @@ export default function HomeDetail() {
   if (loading) {
     return <Loading />;
   }
+  if (!bookData) {
+    return <p>책 정보를 찾을 수 없습니다.</p>;
+  }
 
   // 저장 이벤트
   const onClickSave = () => {
@@ -98,41 +105,38 @@ export default function HomeDetail() {
   return (
     <>
       <SubHeader text='책 상세' />
-      {!bookData ? (
-        <p>책 정보를 찾을 수 없습니다.</p>
-      ) : (
-        <>
-          <BookCover>
-            <p className='title'>{bookData[0].title}</p>
-            <img src={bookData[0].cover} alt={bookData[0].title} />
-            <p className='fs_14 gray78'>
-              {bookData[0].author} ({bookData[0].subInfo?.itemPage}p)
-            </p>
-            <a
-              href={bookData[0].link}
-              target='_blank'
-              rel='noopener noreferrer'
-            >
-              알라딘 링크 이동
-            </a>
-          </BookCover>
-          <BookInfo>
-            <strong>책 소개</strong>
-            <p>{bookData[0].description}</p>
-            <strong>출판사</strong>
-            <p>{bookData[0].publisher}</p>
-            <strong>ISBN</strong>
-            <p>
-              {bookData[0].isbn} {bookData[0].isbn13}
-            </p>
-            <strong>페이지</strong>
-            <p>{bookData[0].subInfo?.itemPage}</p>
-            <div className='btn'>
-              <Button onClick={onClickSave} width={100} text='저장' />
-            </div>
-          </BookInfo>
-        </>
-      )}
+
+      <BookDetail>
+        <BookCover>
+          <p className='title'>{bookData[0].title}</p>
+          <img
+            className='cover_img'
+            src={bookData[0].cover}
+            alt={bookData[0].title}
+          />
+          <p className='fs_14 gray78'>
+            {bookData[0].author} ({bookData[0].subInfo?.itemPage}p)
+          </p>
+          <a href={bookData[0].link} target='_blank' rel='noopener noreferrer'>
+            알라딘 링크 이동
+          </a>
+        </BookCover>
+        <BookInfo>
+          <strong>책 소개</strong>
+          <p>{bookData[0].description}</p>
+          <strong>출판사</strong>
+          <p>{bookData[0].publisher}</p>
+          <strong>ISBN</strong>
+          <p>
+            {bookData[0].isbn} {bookData[0].isbn13}
+          </p>
+          <strong>페이지</strong>
+          <p>{bookData[0].subInfo?.itemPage}</p>
+          <div className='btn'>
+            <Button onClick={onClickSave} width={100} text='저장' />
+          </div>
+        </BookInfo>
+      </BookDetail>
 
       {/* 이미 등록한 책 confirm */}
       <ModalLayout

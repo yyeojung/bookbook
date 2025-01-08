@@ -1,5 +1,6 @@
 // 상품 조회 데이터
 export interface BookData {
+  bookId: string;
   title: string;
   author: string;
   cover: string;
@@ -23,10 +24,10 @@ export interface LibraryData {
 export interface LibraryBook extends BookData {
   bookState: boolean;
   startDate?: Date | null;
-  pagePercent?: boolean | null;
+  pagePercent?: boolean;
   endDate?: Date | null;
   starRating?: number | undefined;
   review?: string | null;
-  pageNum?: number | null;
+  pageNum?: number;
   itemPage?: number;
 }

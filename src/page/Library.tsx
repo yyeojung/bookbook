@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { FaSort } from 'react-icons/fa';
 import BookContents from 'components/page/library/BookContents';
 import { useReadBook } from 'hook/useReadBook';
+import { Link } from 'react-router-dom';
 
 const Tab = styled.ul`
   display: flex;
@@ -51,6 +52,7 @@ const ContentsWrap = styled.div`
 export default function Library() {
   const [bookState, setBookState] = useState('all');
   const { readBooks, readingBooks } = useReadBook();
+  const [isAscending, setIsAscending] = useState(true);
 
   // tab list
   const libraryTab = [
@@ -67,6 +69,11 @@ export default function Library() {
     setBookState(state);
   };
 
+  // 정렬 버튼
+  const onClickSort = () => {
+    setIsAscending((prev) => !prev);
+  };
+
   // 책 필터링
   let isViewBook = [];
   if (bookState === 'all') {
@@ -76,6 +83,19 @@ export default function Library() {
   } else {
     isViewBook = readingBooks;
   }
+
+  // 정렬
+  isViewBook.sort((a, b) => {
+    if (!a.startDate || !b.startDate) {
+      return 0;
+    }
+
+    if (isAscending) {
+      return new Date(a.startDate).getTime() - new Date(b.startDate).getTime();
+    } else {
+      return new Date(b.startDate).getTime() - new Date(a.startDate).getTime();
+    }
+  });
 
   return (
     <>
@@ -91,13 +111,15 @@ export default function Library() {
       </Tab>
       <ContentsWrap className='scroll'>
         <SortTag>
-          <button>
-            오래된 저장 순
+          <button onClick={onClickSort}>
+            {isAscending ? '오래된' : '최신'} 저장 순
             <FaSort />
           </button>
         </SortTag>
-        {isViewBook.map((book, index) => (
-          <BookContents key={`${book.isbn13}${index}`} book={book} />
+        {isViewBook.map((book) => (
+          <Link key={book.bookId} to={`/library/report/${book.bookId}`}>
+            <BookContents book={book} />
+          </Link>
         ))}
       </ContentsWrap>
       {/* // 데이터 없을시 */}

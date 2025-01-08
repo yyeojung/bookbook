@@ -13,6 +13,7 @@ const useLibraryStore = create<LibraryData>()(
           books: [
             ...state.books,
             {
+              bookId: data.bookId,
               bookState: data.bookState,
               startDate: data.startDate,
               endDate: data.endDate,
@@ -35,7 +36,7 @@ const useLibraryStore = create<LibraryData>()(
         })),
       deleteBook: (bookId: string) =>
         set((state) => ({
-          books: state.books.filter((book) => book.isbn13 !== bookId)
+          books: state.books.filter((book) => book.bookId !== bookId)
         }))
     }),
     { name: 'library' } // 로컬 스토리지에 'library'라는 키로 저장

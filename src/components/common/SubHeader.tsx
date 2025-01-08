@@ -33,9 +33,10 @@ const Header = styled.div`
 interface SubHeaderProps {
   text: string;
   onClick?: () => void;
+  clear?: boolean;
 }
 
-export default function SubHeader({ text, onClick }: SubHeaderProps) {
+export default function SubHeader({ text, onClick, clear }: SubHeaderProps) {
   const navigate = useNavigate();
 
   const onClickBack = () => {
@@ -47,9 +48,11 @@ export default function SubHeader({ text, onClick }: SubHeaderProps) {
   };
   return (
     <Header>
-      <button onClick={onClickBack}>
-        <IoIosArrowBack />
-      </button>
+      {!clear && (
+        <button onClick={onClickBack}>
+          <IoIosArrowBack />
+        </button>
+      )}
       <strong>{text}</strong>
     </Header>
   );

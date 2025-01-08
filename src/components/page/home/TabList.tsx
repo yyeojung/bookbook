@@ -24,9 +24,6 @@ const BookList = styled.ul`
     img {
       width: 100%;
       height: 13rem;
-      border-radius: 0.8rem;
-      object-fit: fill;
-      box-shadow: var(--card_shadow);
       @media (min-width: 500px) {
         height: 14rem;
       }
@@ -54,10 +51,10 @@ export default function TabList() {
       {filterBooks
         .slice()
         .reverse()
-        .map((book, index) => (
-          <li key={`${book.isbn13}${index}`}>
-            <Link to='/home'>
-              <img src={book.cover} alt={book.isbn13} />
+        .map((book) => (
+          <li key={book.bookId}>
+            <Link to={`/library/report/${book.bookId}`}>
+              <img className='cover_img' src={book.cover} alt={book.isbn13} />
               <p className='title text_ellipsis'>{book.title}</p>
               <p className='sub_title mt_4 text_ellipsis'>{book.author}</p>
               <StarRating readonly rating={book.starRating} />

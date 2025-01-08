@@ -19,14 +19,6 @@ const BookList = styled.ul`
     gap: 1rem;
     border-bottom: 0.1rem solid #d5d5d5;
 
-    img {
-      width: 9rem;
-      height: 11rem;
-      border-radius: 0.8rem;
-      object-fit: fill;
-      box-shadow: var(--card_shadow);
-    }
-
     .desc {
       width: calc(100% - 10rem);
       .title {
@@ -118,7 +110,11 @@ export default function SearchList() {
                 item.isbn13 && (
                   <li key={item.isbn13}>
                     <Link to={`/home/detail/${item.isbn13}`}>
-                      <img src={item.cover} alt={item.title} />
+                      <img
+                        className='cover_img'
+                        src={item.cover}
+                        alt={item.title}
+                      />
                       <div className='desc'>
                         <p className='title'>{item.title}</p>
                         <div className='sub'>

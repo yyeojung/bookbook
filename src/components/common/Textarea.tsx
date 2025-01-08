@@ -47,6 +47,7 @@ export default function Textarea({
   return (
     <TextBox>
       <textarea
+        value={text}
         onChange={onChangeText}
         maxLength={maxLength && maxLength}
         placeholder={placeholder}

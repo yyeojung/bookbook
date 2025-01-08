@@ -9,8 +9,6 @@ import ModalHomeView from 'components/modal/ModalHomeView';
 import { useReadBook } from 'hook/useReadBook';
 import NoBook from 'components/common/NoBook';
 import { useViewStore } from 'store/useViewStore';
-import { useSelectStore } from 'store/useSelectStore';
-
 const Wrap = styled.div`
   .show_text {
     font-size: 1.8rem;
@@ -45,11 +43,10 @@ const HomeTop = styled.div`
 `;
 
 export default function Home() {
-  const { filterBooks } = useReadBook();
   const [tabBuild, setTabBuild] = useState(true);
   const { isModalOpen, openModal, closeModal } = useModal();
   const { isView } = useViewStore();
-  const { selectOption } = useSelectStore();
+  const { selectYear, selectMonth, filterBooks } = useReadBook();
 
   const onClickTab = (e: boolean) => {
     setTabBuild(e);
@@ -59,19 +56,15 @@ export default function Home() {
     closeModal();
   };
 
-  const selectYear = selectOption.filter((opt) => opt.name === 'year');
-  const selectMonth = selectOption.filter((opt) => opt.name === 'month');
-
   // 보기 타이틀
   let viewText = '전체 보기';
   if (isView !== 'all') {
-    if (selectMonth[0].value === '전체') {
-      viewText = `${selectYear[0].value}년 전체`;
+    if (selectMonth.value === '전체') {
+      viewText = `${selectYear.value}년 전체`;
     } else {
-      viewText = `${selectYear[0].value}년 ${selectMonth[0].value}월`;
+      viewText = `${selectYear.value}년 ${selectMonth.value}월`;
     }
   }
-
 
   return (
     <Wrap>

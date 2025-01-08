@@ -13,7 +13,6 @@ const InputWrap = styled.div`
 
   input {
     background: var(--grayF2);
-    height: 4rem;
     border-radius: 0.8rem;
     padding: 1rem 1.6rem;
     width: 100%;

@@ -7,8 +7,14 @@ export const useReadBook = () => {
   const { isView } = useViewStore();
   const { selectOption } = useSelectStore();
 
-  const selectYear = selectOption.filter((opt) => opt.name === 'year');
-  const selectMonth = selectOption.filter((opt) => opt.name === 'month');
+  const currentYear = new Date().getFullYear();
+  const defaultYear = { label: 'year', value: String(currentYear) };
+  const defaultMonth = { label: 'month', value: '전체' };
+
+  const selectYear =
+    selectOption.filter((opt) => opt.label === 'year')[0] || defaultYear;
+  const selectMonth =
+    selectOption.filter((opt) => opt.label === 'month')[0] || defaultMonth;
 
   const readBooks = books.filter((book) => book.bookState === true);
   const readingBooks = books.filter((book) => book.bookState === false);
@@ -25,15 +31,15 @@ export const useReadBook = () => {
     const bookYear = bookDate.getFullYear();
     const bookMonth = bookDate.getMonth() + 1;
 
-    if (selectMonth[0].value === '전체') {
-      return bookYear === Number(selectYear[0].value);
+    if (selectMonth.value === '전체') {
+      return bookYear === Number(selectYear.value);
     }
 
     return (
-      bookYear === Number(selectYear[0].value) &&
-      bookMonth === Number(selectMonth[0].value)
+      bookYear === Number(selectYear.value) &&
+      bookMonth === Number(selectMonth.value)
     );
   });
 
-  return { readBooks, readingBooks, filterBooks };
+  return { selectYear, selectMonth, readBooks, readingBooks, filterBooks };
 };

@@ -13,6 +13,7 @@ import Styleguide from 'page/Styleguide';
 import Login from './page/Login';
 import HomeDetail from 'page/HomeDetail';
 import HomeRegister from 'page/HomeRegister';
+import LibraryBook from 'page/LibraryBook';
 
 const Delete = styled.div`
   display: flex;
@@ -53,8 +54,13 @@ function App() {
           <Route path='/home/detail/:isbn' element={<HomeDetail />} />
           <Route path='/home/register/:isbn' element={<HomeRegister />} />
           <Route path='/library' element={<Library />} />
+          <Route path='/library/report/:bookId' element={<LibraryBook />} />
+          <Route path='/home/edit/:bookId' element={<HomeRegister />} />
+          <Route
+            path='/statistics'
+            element={<Statistics currentTheme={currentTheme} />}
+          />
           <Route path='/setting' element={<Setting />} />
-          <Route path='/statistics' element={<Statistics />} />
           <Route path='/' element={<Login />} />
           {/* styleguide */}
           <Route path='/styleguide' element={<Styleguide />} />

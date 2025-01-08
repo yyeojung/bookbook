@@ -117,14 +117,14 @@ export default function TabBuild() {
         {filterBooks
           .slice()
           .reverse()
-          .map((book, index) => (
+          .map((book) => (
             <li
               style={{
                 height: `${0.01 * (book.itemPage ?? 200)}rem` // 동적으로 계산된 높이
               }}
-              key={`${book.isbn13}-${index}`}
+              key={book.bookId}
             >
-              <Link to='/'>
+              <Link to={`/library/report/${book.bookId}`}>
                 <span className='text_ellipsis'>{book.title}</span>
               </Link>
             </li>

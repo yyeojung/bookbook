@@ -5,6 +5,7 @@ interface StarProps {
   rating: number | undefined;
   size?: number;
   readonly?: boolean;
+  className?: string;
   onChangeRating?: (rating: number) => void;
 }
 
@@ -18,6 +19,7 @@ export default function StarRating({
   rating,
   size,
   readonly,
+  className,
   onChangeRating
 }: StarProps) {
   const onClickRating = (rate: number) => {
@@ -28,7 +30,7 @@ export default function StarRating({
 
   return (
     <StyledRating
-      className={readonly ? 'readonly' : ''}
+      className={`${className ? className : ''} ${readonly ? 'readonly' : ''}`}
       onClick={onClickRating}
       size={size ? size : 25}
       transition

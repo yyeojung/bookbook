@@ -4,9 +4,10 @@ import RadioBtn from '../common/RadioBtn';
 import ModalLayout from './ModalLayout';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import Dropdown from 'components/common/Dropdown';
-import { selectMonth, selectYear } from 'data/selectOption';
+import { selectMonthData, selectYearData } from 'data/selectOption';
 import { useViewStore } from 'store/useViewStore';
 import { useSelectStore } from 'store/useSelectStore';
+import { useReadBook } from 'hook/useReadBook';
 
 interface ModalHomeProps {
   isOpen: boolean;
@@ -31,6 +32,7 @@ const Contents = styled.div`
 export default function ModalHomeView({ isOpen, onClick }: ModalHomeProps) {
   const { isView, setIsView } = useViewStore();
   const [isYear, setIsYear] = useState(isView);
+  const { selectYear, selectMonth } = useReadBook();
   const { selectOption, setSelectOption } = useSelectStore();
 
   const onChangeRadio = (e: ChangeEvent<HTMLInputElement>) => {
@@ -39,15 +41,14 @@ export default function ModalHomeView({ isOpen, onClick }: ModalHomeProps) {
 
     if (value === 'year') {
       // 드롭다운 상태 초기화
-      if (!selectOption.find((opt) => opt.name === 'year')) {
-        setSelectOption('year', selectYear()[0].value);
+      if (!selectOption.find((opt) => opt.label === 'year')) {
+        setSelectOption('year', selectYearData()[0].value);
       }
-      if (!selectOption.find((opt) => opt.name === 'month')) {
-        setSelectOption('month', selectMonth()[0].value);
+      if (!selectOption.find((opt) => opt.label === 'month')) {
+        setSelectOption('month', selectMonthData()[0].value);
       }
     }
   };
-
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (isYear === 'year') {
@@ -78,8 +79,18 @@ export default function ModalHomeView({ isOpen, onClick }: ModalHomeProps) {
           />
           {isYear === 'year' && (
             <div className='select_wrap'>
-              <Dropdown name='year' width='11.2rem' options={selectYear()} />
-              <Dropdown name='month' width='11.2rem' options={selectMonth()} />
+              <Dropdown
+                name='year'
+                width='11.2rem'
+                options={selectYearData()}
+                defaultValue={selectYear}
+              />
+              <Dropdown
+                name='month'
+                width='11.2rem'
+                options={selectMonthData()}
+                defaultValue={selectMonth}
+              />
             </div>
           )}
         </Contents>

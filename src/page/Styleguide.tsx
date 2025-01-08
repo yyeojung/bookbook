@@ -6,8 +6,9 @@ import RadioBtn from 'components/common/RadioBtn';
 import StarRating from 'components/common/StarRating';
 import SubHeader from 'components/common/SubHeader';
 import ModalLayout from 'components/modal/ModalLayout';
-import { selectYear } from 'data/selectOption';
+import { selectYearData } from 'data/selectOption';
 import { useModal } from 'hook/useModal';
+import { useReadBook } from 'hook/useReadBook';
 import { useState } from 'react';
 import styled from 'styled-components';
 
@@ -27,6 +28,7 @@ export default function Styleguide() {
   const [rating, setRating] = useState(0);
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [endDate, setEndDate] = useState<Date | null>(new Date());
+  const { selectYear } = useReadBook();
 
   // rating
   const onChangeRating = (rate: number) => {
@@ -65,8 +67,18 @@ export default function Styleguide() {
 
       {/* form */}
       <h3>form</h3>
-      <Dropdown name='sample' width='30rem' options={sampleOption} />
-      <Dropdown name='sample' width='30rem' options={selectYear()} />
+      <Dropdown
+        name='sample'
+        width='30rem'
+        options={sampleOption}
+        defaultValue={sampleOption[0]}
+      />
+      <Dropdown
+        name='sample'
+        width='30rem'
+        options={selectYearData()}
+        defaultValue={selectYear}
+      />
       <Calendar selectedDate={selectDate} setSelectedDate={setSelectDate} />
       <CalendarPeriod
         startDate={startDate}

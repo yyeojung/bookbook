@@ -1,4 +1,4 @@
-export const selectYear = () => {
+export const selectYearData = () => {
   const now = new Date();
   const currentYear = now.getFullYear();
 
@@ -9,7 +9,7 @@ export const selectYear = () => {
   return years.reverse();
 };
 
-export const selectMonth = () => [
+export const selectMonthData = () => [
   { value: '전체', label: '전체' },
   ...Array.from({ length: 12 }, (_, index) => {
     return { value: `${index + 1}`, label: `${index + 1}` };

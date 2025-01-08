@@ -9,10 +9,7 @@ const BookList = styled.div`
   border-bottom: 0.1rem solid var(--grayD5);
 
   img {
-    width: 9rem;
     height: 13.6rem;
-    object-fit: fill;
-    box-shadow: var(--card_shadow);
     border-radius: 1rem;
   }
 
@@ -49,30 +46,85 @@ const BookList = styled.div`
   }
 `;
 
+export const ProgressBar = styled.div`
+  .progress {
+    width: 100%;
+    height: 0.6rem;
+    background: var(--grayF2);
+    border-radius: 0.6rem;
+
+    .percent {
+      height: 100%;
+      border-radius: 0.6rem;
+      background: ${(props) => props.theme.subColor03};
+    }
+  }
+  .percent_text {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.3rem;
+    margin-top: 0.6rem;
+
+    .per {
+      color: ${(props) => props.theme.subColor03};
+    }
+  }
+`;
+
 export default function BookContents({ book }: { book: LibraryBook }) {
   const startNewDate = book.startDate ? new Date(book.startDate) : null;
   const endNewDate = book.endDate ? new Date(book.endDate) : null;
 
   const start = startNewDate
-    ? `${startNewDate.getFullYear()}.${startNewDate.getMonth() + 1}.${startNewDate.getDate()}`
+    ? `${startNewDate.getFullYear()}.${(startNewDate.getMonth() + 1).toString().padStart(2, '0')}.${startNewDate.getDate().toString().padStart(2, '0')}`
     : '';
 
   const end = endNewDate
-    ? `${endNewDate.getFullYear()}.${endNewDate.getMonth() + 1}.${endNewDate.getDate()}`
+    ? `${endNewDate.getFullYear()}.${(endNewDate.getMonth() + 1).toString().padStart(2, '0')}.${endNewDate.getDate().toString().padStart(2, '0')}`
     : '';
 
+  let pagePercent = book.pageNum;
+  if (!book.pagePercent && book.pageNum && book.itemPage) {
+    pagePercent = (book.pageNum / book.itemPage) * 100;
+  }
   return (
     <BookList>
-      <img src={book.cover} alt={book.title} />
+      <img className='cover_img' src={book.cover} alt={book.title} />
       <ul>
         <li>
           <strong className='text_ellipsis d_block'>{book.title}</strong>
         </li>
-        <li>
-          <StarRating rating={book.starRating} readonly />
-        </li>
         {/* 읽고있는 책의 경우 ui */}
-        <li className='review'>{book.review}</li>
+        {book.bookState === false ? (
+          <li>
+            <ProgressBar>
+              <div className='progress'>
+                <div
+                  className='percent'
+                  style={{ width: `${pagePercent}%` }}
+                ></div>
+              </div>
+              <div className='percent_text'>
+                <p className='per'>{pagePercent?.toFixed(0)}%</p>
+                <p className='gray78'>
+                  <span>
+                    {book.pagePercent
+                      ? (book.itemPage ?? 0) * (book.pageNum ?? 0) * 0.01
+                      : book.pageNum}
+                  </span>{' '}
+                  / <span>{book.itemPage}p</span>
+                </p>
+              </div>
+            </ProgressBar>
+          </li>
+        ) : (
+          <>
+            <li>
+              <StarRating rating={book.starRating} readonly />
+            </li>
+            <li className='review'>{book.review}</li>
+          </>
+        )}
         <li className='date'>
           <p>
             {start} ~ {end}

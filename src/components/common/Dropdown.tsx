@@ -9,10 +9,12 @@ interface Option {
 interface DropdownProps {
   options: Option[];
   width?: string;
+  defaultValue: Option;
   name: string;
 }
 const StyledSelect = styled(Select<Option>)<{ width?: string }>`
   width: ${(props) => props.width || '100%'};
+  height: 4rem;
   // 드롭다운 박스
   .custom__control {
     border: 0.1rem solid #d5d5d5;
@@ -20,6 +22,9 @@ const StyledSelect = styled(Select<Option>)<{ width?: string }>`
     font-weight: 600;
     box-shadow: none;
 
+    .custom__value-container {
+      padding: 0 0.8rem;
+    }
     &:hover,
     &.custom__control---is-focused {
       box-shadow: none;
@@ -66,11 +71,13 @@ const StyledSelect = styled(Select<Option>)<{ width?: string }>`
   }
 `;
 
-export default function Dropdown({ options, width, name }: DropdownProps) {
-  const { selectOption, setSelectOption } = useSelectStore();
-
-  const currentValue =
-    selectOption.find((opt) => opt.name === name)?.value || options[0];
+export default function Dropdown({
+  defaultValue,
+  options,
+  width,
+  name
+}: DropdownProps) {
+  const { setSelectOption } = useSelectStore();
 
   return (
     <StyledSelect
@@ -78,7 +85,7 @@ export default function Dropdown({ options, width, name }: DropdownProps) {
       isSearchable={false} // 검색 기능 비활성화
       // menuIsOpen={true} 메뉴 항상 오픈
       classNamePrefix='custom'
-      defaultValue={options.find((opt) => opt.value === currentValue)}
+      defaultValue={{ value: defaultValue.value, label: defaultValue.value }}
       width={width}
       name={name}
       onChange={(option: SingleValue<Option>) => {
