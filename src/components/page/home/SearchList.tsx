@@ -62,9 +62,8 @@ export default function SearchList() {
 
     try {
       const response = await fetch(
-        // cors 오류로 heroku/api주소
         `
-            https://tranquil-tundra-65213-03a93afc8c4f.herokuapp.com/http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=${
+            http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=${
               process.env.REACT_APP_TTB_KEY
             }&Query=${query}&QueryType=Title&MaxResults=10&start=${page}&SearchTarget=Book&Cover=Big&output=js&Version=20131101
         `

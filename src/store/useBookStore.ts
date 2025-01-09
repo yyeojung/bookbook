@@ -14,7 +14,7 @@ const useBookStore = create<BookStore>((set) => ({
     try {
       const response = await fetch(
         `
-                  https://tranquil-tundra-65213-03a93afc8c4f.herokuapp.com/http://www.aladin.co.kr/ttb/api/ItemLookUp.aspx?ttbkey=${
+                  http://www.aladin.co.kr/ttb/api/ItemLookUp.aspx?ttbkey=${
                     process.env.REACT_APP_TTB_KEY
                   }&itemIdType=ISBN13&ItemId=${isbn}&output=js&Version=20131101
               `

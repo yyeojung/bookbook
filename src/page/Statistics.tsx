@@ -1,6 +1,7 @@
 import Dropdown from 'components/common/Dropdown';
 import SubHeader from 'components/common/SubHeader';
 import ChartBook from 'components/page/statistics/ChartBook';
+import ChartPage from 'components/page/statistics/ChartPage';
 import { useReadBook } from 'hook/useReadBook';
 import { useSelectStore } from 'store/useSelectStore';
 import styled from 'styled-components';
@@ -34,7 +35,8 @@ export default function Statistics({ currentTheme }: ChartColorProps) {
       const endDate = new Date(book.endDate!);
       return {
         year: endDate.getFullYear().toString(),
-        month: endDate.getMonth()
+        month: endDate.getMonth(),
+        itemPages: book.itemPage || 0
       };
     });
 
@@ -47,20 +49,25 @@ export default function Statistics({ currentTheme }: ChartColorProps) {
     selectOption.find((option) => option.label === 'chartYear') || chartYear[0];
 
   //   차트 연도별 책 권수
-  const filterBooks = readBooks.filter((book) => {
-    const bookYear = book.endDate && new Date(book.endDate).getFullYear();
-    return bookYear === Number(defaultValue.value);
-  });
+  const filterBooks = booksYear.filter(
+    (book) => book.year === defaultValue.value
+  );
 
   //   차트 연도별 페이지 수
-  const itemPages = filterBooks.reduce((acc, cur) => {
-    return acc + (cur.itemPage || 0);
-  }, 0);
+  const itemPages = filterBooks.reduce((acc, cur) => acc + cur.itemPages, 0);
 
-  //   차트 월별 데이터
-  const chartBookData = booksYear
-    .filter((book) => book?.year === defaultValue.value)
-    .map((book) => book?.month);
+  //   차트 데이터
+  const chartData = <T extends keyof (typeof filterBooks)[0]>(key: T) => {
+    return filterBooks.map((book) => book[key]);
+  };
+
+  //   권수별 차트 데이터
+  const chartBookData = filterBooks.map((book) => book.month);
+
+  // 페이지별 차트 데이터
+  const chartPageData = filterBooks.map((book) => book.itemPages);
+  console.log(chartData('year'));
+  console.log(chartPageData);
 
   return (
     <>
@@ -89,6 +96,7 @@ export default function Statistics({ currentTheme }: ChartColorProps) {
               (총 {`${itemPages.toLocaleString()}p`})
             </span>
           </p>
+          <ChartPage chartData={chartBookData} currentTheme={currentTheme} />
         </div>
       </Wrap>
     </>
