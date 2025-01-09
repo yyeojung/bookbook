@@ -68,8 +68,7 @@ export default function SearchList() {
       //         }&Query=${query}&QueryType=Title&MaxResults=10&start=${page}&SearchTarget=Book&Cover=Big&output=js&Version=20131101
       //     `
       //   );
-      const proxyUrl =
-        process.env.REACT_APP_PROXY_URL || 'http://localhost:3000/proxy';
+      const proxyUrl = process.env.REACT_APP_PROXY_URL;
       const apiUrl = `http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=${process.env.REACT_APP_TTB_KEY}&Query=${query}&QueryType=Title&MaxResults=10&start=${page}&SearchTarget=Book&Cover=Big&output=js&Version=20131101`;
 
       const response = await fetch(
