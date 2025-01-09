@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/bookbook/static/css/main.4668ec70.css",
+    "main.js": "/bookbook/static/js/main.1060900a.js",
+    "static/js/453.20e7d7c1.chunk.js": "/bookbook/static/js/453.20e7d7c1.chunk.js",
+    "static/media/NanumSquareRoundR.woff": "/bookbook/static/media/NanumSquareRoundR.6ee5b3c7d605890fd933.woff",
+    "static/media/NanumSquareRoundB.woff": "/bookbook/static/media/NanumSquareRoundB.2ef2f930d1f561cb11cd.woff",
+    "static/media/NanumSquareRoundEB.woff": "/bookbook/static/media/NanumSquareRoundEB.66bf8910ea13c709fa81.woff",
+    "static/media/NanumSquareRoundL.woff": "/bookbook/static/media/NanumSquareRoundL.626f608c564d6e404bbb.woff",
+    "static/media/book.png": "/bookbook/static/media/book.5423e92f94c0eb97cf6e.png",
+    "static/media/datepicker.svg": "/bookbook/static/media/datepicker.76165a4010cf7688ac263833d73980f8.svg",
+    "index.html": "/bookbook/index.html",
+    "static/media/radio-blue.svg": "/bookbook/static/media/radio-blue.a15ff97ffc18ba78ed8635a15c714b55.svg",
+    "static/media/radio-green.svg": "/bookbook/static/media/radio-green.b48b9346960c26712d3911acf4f97896.svg",
+    "static/media/radio-pink.svg": "/bookbook/static/media/radio-pink.4814924607f89e3feb63f0f15630aa93.svg",
+    "static/media/radio-yellow.svg": "/bookbook/static/media/radio-yellow.ba2ec03e9fe3e56f509ccb8116d1dab9.svg",
+    "static/media/radio-default.svg": "/bookbook/static/media/radio-default.ff308efd66fc1478d687.svg",
+    "main.4668ec70.css.map": "/bookbook/static/css/main.4668ec70.css.map",
+    "main.1060900a.js.map": "/bookbook/static/js/main.1060900a.js.map",
+    "453.20e7d7c1.chunk.js.map": "/bookbook/static/js/453.20e7d7c1.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4668ec70.css",
+    "static/js/main.1060900a.js"
+  ]
+}

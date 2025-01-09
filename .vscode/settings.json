@@ -1,0 +1,5 @@
+{
+  "editor.formatOnSave": true, // 파일 저장 시 자동 포맷팅
+  "eslint.format.enable": true, // ESLint 포맷팅 사용
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+}
