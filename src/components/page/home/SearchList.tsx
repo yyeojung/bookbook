@@ -9,7 +9,7 @@ const Contents = styled.div`
   margin-top: 1rem;
   padding: 0 2rem 2rem;
   overflow-y: auto;
-  max-height: calc(100vh - 18rem);
+  height: calc(100vh - 18rem);
 `;
 
 const BookList = styled.ul`
@@ -61,20 +61,12 @@ export default function SearchList() {
     setLoading(true);
 
     try {
-      //   const response = await fetch(
-      //     `
-      //         http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=${
-      //           process.env.REACT_APP_TTB_KEY
-      //         }&Query=${query}&QueryType=Title&MaxResults=10&start=${page}&SearchTarget=Book&Cover=Big&output=js&Version=20131101
-      //     `
-      //   );
       const proxyUrl = process.env.REACT_APP_PROXY_URL;
       const apiUrl = `http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=${process.env.REACT_APP_TTB_KEY}&Query=${query}&QueryType=Title&MaxResults=10&start=${page}&SearchTarget=Book&Cover=Big&output=js&Version=20131101`;
 
       const response = await fetch(
         `${proxyUrl}?url=${encodeURIComponent(apiUrl)}`
       );
-      console.log(proxyUrl);
 
       const data = await response.json();
 

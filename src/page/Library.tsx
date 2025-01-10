@@ -5,6 +5,7 @@ import { FaSort } from 'react-icons/fa';
 import BookContents from 'components/page/library/BookContents';
 import { useReadBook } from 'hook/useReadBook';
 import { Link } from 'react-router-dom';
+import NoBook from 'components/common/NoBook';
 
 const Tab = styled.ul`
   display: flex;
@@ -18,7 +19,10 @@ const Tab = styled.ul`
     padding: 0 0.8rem;
     height: 100%;
     line-height: 4rem;
+    width: 33.333%;
+    max-width: 14rem;
     margin-bottom: -0.1rem;
+    text-align: center;
 
     &.active {
       border-bottom: 0.2rem solid ${(props) => props.theme.subColor03};
@@ -86,17 +90,19 @@ export default function Library() {
 
   // 정렬
   isViewBook.sort((a, b) => {
-    if (!a.startDate || !b.startDate) {
+    if (!a.endDate || !b.endDate) {
       return 0;
     }
 
     if (isAscending) {
-      return new Date(a.startDate).getTime() - new Date(b.startDate).getTime();
+      return new Date(a.endDate).getTime() - new Date(b.endDate).getTime();
     } else {
-      return new Date(b.startDate).getTime() - new Date(a.startDate).getTime();
+      return new Date(b.endDate).getTime() - new Date(a.endDate).getTime();
     }
   });
 
+  //   현재 탭
+  const currentTab = libraryTab.find((item) => item.state === bookState);
   return (
     <>
       <SubHeader text='책 상세' />
@@ -112,7 +118,7 @@ export default function Library() {
       <ContentsWrap className='scroll'>
         <SortTag>
           <button onClick={onClickSort}>
-            {isAscending ? '오래된' : '최신'} 저장 순
+            독서 {isAscending ? '오름차순' : '내림차순'}
             <FaSort />
           </button>
         </SortTag>
@@ -123,7 +129,7 @@ export default function Library() {
         ))}
       </ContentsWrap>
       {/* // 데이터 없을시 */}
-      {/* <NoBook /> */}
+      {currentTab?.length === 0 && <NoBook height='calc(100% - 22rem)' />}
     </>
   );
 }

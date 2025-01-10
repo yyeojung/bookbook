@@ -22,8 +22,9 @@ const ChartBook = ({ currentTheme, chartData }: ChartBookProps) => {
   };
   const monthBookLength = countMonthBook(chartData as number[]);
 
-  const maxValue = Math.max(...monthBookLength);
-  const stepSize = Math.ceil(maxValue / 4);
+  const monthMaxValue = Math.max(...monthBookLength) || 4;
+  const maxValue = Math.ceil(monthMaxValue / 4) * 4;
+  const stepSize = monthMaxValue > 0 ? Math.ceil(monthMaxValue / 4) : 1;
 
   const data = {
     labels: ['1월', '', '3월', '', '5월', '', '7월', '', '9월', '', '11월', ''],
@@ -65,6 +66,8 @@ const ChartBook = ({ currentTheme, chartData }: ChartBookProps) => {
           tickColor: '#f2f2f2',
           tickLength: 4
         },
+        min: 0,
+        max: maxValue,
         border: {
           display: false
         },
@@ -82,7 +85,7 @@ const ChartBook = ({ currentTheme, chartData }: ChartBookProps) => {
           display: false
         },
         ticks: {
-          color: '#3c3c3c',
+          color: '#131212',
           maxRotation: 0, // 레이블의 기울기를 제어
           autoSkip: false,
           padding: -2,

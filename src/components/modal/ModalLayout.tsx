@@ -14,6 +14,7 @@ const customModalStyles: ReactModal.Styles = {
   },
   content: {
     minWidth: '34rem',
+    width: 'fit-content',
     height: 'fit-content',
     minHeight: '18rem',
     zIndex: '150',

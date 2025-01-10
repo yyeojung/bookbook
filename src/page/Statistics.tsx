@@ -24,7 +24,9 @@ export interface ChartColorProps {
     subColor03: string;
   };
 }
-export default function Statistics({ currentTheme }: ChartColorProps) {
+export default function Statistics({
+  currentTheme
+}: ChartColorProps): JSX.Element {
   const { readBooks } = useReadBook();
   const { selectOption } = useSelectStore();
 
@@ -32,7 +34,7 @@ export default function Statistics({ currentTheme }: ChartColorProps) {
   const booksYear = readBooks
     .filter((book) => book.endDate)
     .map((book) => {
-      const endDate = new Date(book.endDate!);
+      const endDate = book.endDate ? new Date(book.endDate) : new Date();
       return {
         year: endDate.getFullYear().toString(),
         month: endDate.getMonth(),
@@ -40,15 +42,23 @@ export default function Statistics({ currentTheme }: ChartColorProps) {
       };
     });
 
-  //   dropdown 옵션
-  const uniqueYears = Array.from(new Set(booksYear.map((book) => book.year)));
+  //  dropdown  endDate 중 가장 작은 연도에서 현재 연도까지 생성
+  const currentYear = new Date().getFullYear();
+  const minYear = Math.min(
+    ...booksYear.map((book) => parseInt(book.year, 10)),
+    currentYear
+  );
+  const uniqueYears = Array.from(
+    { length: currentYear - minYear + 1 },
+    (_, i) => (minYear + i).toString()
+  );
   const chartYear = uniqueYears.map((year) => {
     return { value: year, label: year };
   });
   const defaultValue =
     selectOption.find((option) => option.label === 'chartYear') || chartYear[0];
 
-  //   차트 연도별 책 권수
+  //   차트 연도별 책 수
   const filterBooks = booksYear.filter(
     (book) => book.year === defaultValue.value
   );
@@ -57,18 +67,16 @@ export default function Statistics({ currentTheme }: ChartColorProps) {
   const itemPages = filterBooks.reduce((acc, cur) => acc + cur.itemPages, 0);
 
   //   차트 데이터
-  const chartData = <T extends keyof (typeof filterBooks)[0]>(key: T) => {
-    return filterBooks.map((book) => book[key]);
-  };
+  //   const chartData = <T extends keyof (typeof filterBooks)[0]>(key: T) => {
+  //     return filterBooks.map((book) => Number(book[key]));
+  //   };
 
   //   권수별 차트 데이터
   const chartBookData = filterBooks.map((book) => book.month);
 
   // 페이지별 차트 데이터
   const chartPageData = filterBooks.map((book) => book.itemPages);
-  console.log(chartData('year'));
-  console.log(chartPageData);
-
+  //   console.log(chartData('year'));
   return (
     <>
       <SubHeader text='나의 기록' clear />
@@ -96,7 +104,7 @@ export default function Statistics({ currentTheme }: ChartColorProps) {
               (총 {`${itemPages.toLocaleString()}p`})
             </span>
           </p>
-          <ChartPage chartData={chartBookData} currentTheme={currentTheme} />
+          <ChartPage chartData={chartPageData} currentTheme={currentTheme} />
         </div>
       </Wrap>
     </>

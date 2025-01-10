@@ -12,12 +12,13 @@ const useBookStore = create<BookStore>((set) => ({
   bookData: null,
   fetchBookData: async (isbn) => {
     try {
+      const proxyUrl = process.env.REACT_APP_PROXY_URL;
+      const apiUrl = `http://www.aladin.co.kr/ttb/api/ItemLookUp.aspx?ttbkey=${
+        process.env.REACT_APP_TTB_KEY
+      }&itemIdType=ISBN13&ItemId=${isbn}&output=js&Version=20131101`;
+
       const response = await fetch(
-        `
-                  http://www.aladin.co.kr/ttb/api/ItemLookUp.aspx?ttbkey=${
-                    process.env.REACT_APP_TTB_KEY
-                  }&itemIdType=ISBN13&ItemId=${isbn}&output=js&Version=20131101
-              `
+        `${proxyUrl}?url=${encodeURIComponent(apiUrl)}`
       );
 
       const data = await response.json();

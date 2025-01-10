@@ -8,9 +8,12 @@ const Nodata = styled.div`
   line-height: 1.5;
 `;
 
-export default function NoBook() {
+interface NoBookProps {
+  height?: string;
+}
+export default function NoBook({ height }: NoBookProps) {
   return (
-    <Nodata>
+    <Nodata style={{ height: height }}>
       읽은 책이 없습니다.
       <br />
       책을 추가해보세요 :&#41;
