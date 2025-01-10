@@ -74,6 +74,7 @@ export default function SearchList() {
       const response = await fetch(
         `${proxyUrl}?url=${encodeURIComponent(apiUrl)}`
       );
+      console.log(proxyUrl);
 
       const data = await response.json();
 
