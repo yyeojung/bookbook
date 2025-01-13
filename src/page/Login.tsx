@@ -28,6 +28,18 @@ const Wrap = styled.div`
     width: calc(100% - 6.4rem);
     margin: 4.6rem 0 0 6.4rem;
   }
+
+  a {
+    margin-top: 2rem;
+    width: 30rem;
+    height: 4rem;
+    line-height: 4rem;
+    text-align: center;
+    background: #e68a8d;
+    border-radius: 2rem;
+    font-weight: 700;
+    color: #fff;
+  }
 `;
 
 export default function Login() {
@@ -36,7 +48,7 @@ export default function Login() {
       <h2>책을 쌓아서 기록하자!</h2>
       <h1>북적북적</h1>
       <img src={LoginImg} alt='loginImg' />
-      <Link to='/home'>홈으로 이동</Link>
+      <Link to='/home'>홈 바로가기</Link>
     </Wrap>
   );
 }
