@@ -19,6 +19,7 @@ export interface BookData {
 export interface LibraryData {
   books: LibraryBook[];
   addBook: (data: LibraryBook) => void;
+  editBook: (data: LibraryBook) => void;
   deleteBook: (bookId: string) => void;
 }
 export interface LibraryBook extends BookData {

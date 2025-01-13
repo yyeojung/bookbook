@@ -66,17 +66,15 @@ export default function Statistics({
   //   차트 연도별 페이지 수
   const itemPages = filterBooks.reduce((acc, cur) => acc + cur.itemPages, 0);
 
-  //   차트 데이터
-  //   const chartData = <T extends keyof (typeof filterBooks)[0]>(key: T) => {
-  //     return filterBooks.map((book) => Number(book[key]));
-  //   };
+  //   권수별, 페이지별 차트 데이터
+  const chartBookData = Array(12).fill(0);
+  const chartPageData = Array(12).fill(0);
 
-  //   권수별 차트 데이터
-  const chartBookData = filterBooks.map((book) => book.month);
+  filterBooks.forEach((item) => {
+    chartBookData[item.month] += 1;
+    chartPageData[item.month] += item.itemPages;
+  });
 
-  // 페이지별 차트 데이터
-  const chartPageData = filterBooks.map((book) => book.itemPages);
-  //   console.log(chartData('year'));
   return (
     <>
       <SubHeader text='나의 기록' clear />
@@ -98,7 +96,7 @@ export default function Statistics({
             </span>
           </p>
           <ChartBook chartData={chartBookData} currentTheme={currentTheme} />
-          <p className='mt_20'>
+          <p className='mt_40'>
             페이지별{' '}
             <span className='fs_14 gray78'>
               (총 {`${itemPages.toLocaleString()}p`})

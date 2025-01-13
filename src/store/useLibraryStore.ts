@@ -34,6 +34,12 @@ const useLibraryStore = create<LibraryData>()(
             }
           ]
         })),
+      editBook: (data) =>
+        set((state) => ({
+          books: state.books.map((book) =>
+            book.bookId === data.bookId ? { ...book, ...data } : book
+          )
+        })),
       deleteBook: (bookId: string) =>
         set((state) => ({
           books: state.books.filter((book) => book.bookId !== bookId)
@@ -44,30 +50,3 @@ const useLibraryStore = create<LibraryData>()(
 );
 
 export { useLibraryStore };
-
-// let libraryStore = (set) => ({
-//   books: [],
-//   addBook: (data: LibraryBook) =>
-//     set((state: LibraryData) => ({
-//       books: [
-//         ...state.books,
-//         {
-//           bookState: data.bookState,
-//           id: data.id,
-//           startDate: data.startDate,
-//           endDate: data.bookState === 'finish' ? data.endDate : null,
-//           starRating: data.bookState === 'finish' ? data.starRating : null,
-//           review: data.bookState === 'finish' ? data.review : null,
-//           pageNum: data.bookState !== 'finish' ? data.pageNum : null
-//         }
-//       ]
-//     })),
-//   deleteBook: (bookId: string) =>
-//     set((state: LibraryData) => ({
-//       books: state.books.filter((book) => book.id !== bookId)
-//     }))
-// });
-
-// libraryStore = persist(libraryStore, { name: 'library' });
-
-// export const useLibraryStore = create<LibraryData>(libraryStore);

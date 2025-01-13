@@ -3,6 +3,8 @@ import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Button from 'components/common/Button';
 import { IoIosCloseCircle } from 'react-icons/io';
+import { useModal } from 'hook/useModal';
+import ModalLayout from 'components/modal/ModalLayout';
 const Form = styled.form`
   display: flex;
   gap: 1rem;
@@ -38,6 +40,7 @@ const InputWrap = styled.div`
 
 export default function SearchForm() {
   const [searchValue, setSearchValue] = useState('');
+  const { isModalOpen, openModal, closeModal } = useModal();
   const navigate = useNavigate();
 
   const { search } = useLocation();
@@ -55,7 +58,7 @@ export default function SearchForm() {
     e.preventDefault();
 
     if (searchValue === '') {
-      alert('내용 입력해주쇼');
+      openModal('search-alert');
     } else {
       navigate(`/home/search?q=${searchValue}`);
     }
@@ -70,20 +73,29 @@ export default function SearchForm() {
     setSearchValue('');
   };
   return (
-    <Form onSubmit={onSubmit}>
-      <InputWrap>
-        <input
-          type='text'
-          placeholder='책 검색하기'
-          onChange={onChangeInput}
-          value={searchValue}
-        />
-        <button type='button' onClick={onClickRemove}>
-          <IoIosCloseCircle />
-          <span className='sr_only'>닫기</span>
-        </button>
-      </InputWrap>
-      <Button type='submit' text='검색' />
-    </Form>
+    <>
+      <Form onSubmit={onSubmit}>
+        <InputWrap>
+          <input
+            type='text'
+            placeholder='책 검색하기'
+            onChange={onChangeInput}
+            value={searchValue}
+          />
+          <button type='button' onClick={onClickRemove}>
+            <IoIosCloseCircle />
+            <span className='sr_only'>닫기</span>
+          </button>
+        </InputWrap>
+        <Button type='submit' text='검색' />
+      </Form>
+
+      <ModalLayout
+        type='alert'
+        message='내용을 입력해주세요.'
+        isOpen={isModalOpen === 'search-alert'}
+        onClose={closeModal}
+      />
+    </>
   );
 }

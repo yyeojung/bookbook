@@ -6,6 +6,7 @@ import BookContents from 'components/page/library/BookContents';
 import { useReadBook } from 'hook/useReadBook';
 import { Link } from 'react-router-dom';
 import NoBook from 'components/common/NoBook';
+import { useViewStore } from 'store/useViewStore';
 
 const Tab = styled.ul`
   display: flex;
@@ -56,7 +57,7 @@ const ContentsWrap = styled.div`
 export default function Library() {
   const [bookState, setBookState] = useState('all');
   const { readBooks, readingBooks } = useReadBook();
-  const [isAscending, setIsAscending] = useState(true);
+  const { isAscending, setIsAscending } = useViewStore();
 
   // tab list
   const libraryTab = [
@@ -75,7 +76,7 @@ export default function Library() {
 
   // 정렬 버튼
   const onClickSort = () => {
-    setIsAscending((prev) => !prev);
+    setIsAscending();
   };
 
   // 책 필터링

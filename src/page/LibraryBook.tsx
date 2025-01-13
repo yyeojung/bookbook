@@ -7,7 +7,7 @@ import { BsFillHandThumbsUpFill } from 'react-icons/bs';
 import { FaBookmark } from 'react-icons/fa6';
 import styled from 'styled-components';
 import { ProgressBar } from 'components/page/library/BookContents';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useLibraryStore } from 'store/useLibraryStore';
 import { useModal } from 'hook/useModal';
 import ModalLayout from 'components/modal/ModalLayout';
@@ -269,9 +269,15 @@ export default function LibraryBook() {
               width={100}
               text='삭제'
             />
-            <Link to={`/home/edit/${currentBook.bookId}`}>
-              <Button width={100} text='수정' />
-            </Link>
+            <Button
+              onClick={() =>
+                navigate(`/home/register/${currentBook.bookId}`, {
+                  state: currentBook
+                })
+              }
+              width={100}
+              text='수정'
+            />
           </div>
         </BookInfo>
       </BookDetail>

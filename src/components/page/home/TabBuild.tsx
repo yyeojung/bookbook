@@ -60,7 +60,7 @@ const Wrap = styled.div`
   }
 `;
 
-const BookList = styled.ul`
+export const BookList = styled.ul`
   li {
     min-width: 18rem;
     max-width: 20rem;

@@ -46,16 +46,16 @@ const BookPage = styled.div`
 
 export default function HomeRegister() {
   const location = useLocation();
-  const { bookId } = useParams();
+  const { isbn } = useParams();
   const { state } = location;
   const navigate = useNavigate();
-  const { books, addBook } = useLibraryStore();
+  const { books, addBook, editBook } = useLibraryStore();
 
-  const currentBook = books.find((book) => book.bookId === bookId);
+  const currentBook = books.find((book) => book.bookId === isbn);
 
   const [readFinish, setReadFinish] = useState(true); // 읽은 책, 읽고 있는 책
   const [pageBtn, setPageBtn] = useState(true); // 읽고 있는 책 쪽, %
-  const [inputPage, setInputPage] = useState<number>(); // 읽고 있는 책 페이지
+  const [inputPage, setInputPage] = useState<number>(0); // 읽고 있는 책 페이지
   const [review, setReview] = useState(''); // 한줄평
   const [rating, setRating] = useState(0);
   const [readingDate, setReadingDate] = useState<Date | null>(new Date());
@@ -67,7 +67,7 @@ export default function HomeRegister() {
     if (currentBook) {
       setReadFinish(currentBook.bookState ?? true);
       setPageBtn(currentBook.pagePercent ?? true);
-      setInputPage(currentBook.pageNum ?? undefined);
+      setInputPage(currentBook.pageNum ?? 0);
       setReview(currentBook.review ?? '');
       setRating(currentBook.starRating ?? 0);
       setReadingDate(currentBook.startDate ?? new Date());
@@ -100,20 +100,24 @@ export default function HomeRegister() {
     e.preventDefault();
 
     const bookData: LibraryBook = {
-      bookId: `${state.isbn13}-${Date.now()}`,
+      bookId: currentBook
+        ? currentBook.bookId
+        : `${state.isbn13}-${Date.now()}`,
       bookState: readFinish,
       startDate: readFinish ? startDate : readingDate,
       endDate: readFinish ? endDate : null,
       starRating: readFinish ? rating : undefined,
       review: readFinish ? review : null,
       pagePercent: !readFinish || !pageBtn,
-      pageNum: !readFinish ? inputPage || 0 : 0,
+      pageNum: !readFinish ? inputPage : 0,
 
       // 책 정보
       title: state.title,
       cover: state.cover,
       author: state.author,
-      itemPage: state.subInfo.itemPage,
+      itemPage: currentBook
+        ? currentBook.itemPage
+        : state.subInfo.itemPage || 0,
       link: state.link,
       description: state.description,
       publisher: state.publisher,
@@ -121,9 +125,10 @@ export default function HomeRegister() {
       isbn13: state.isbn13
     };
 
-    addBook(bookData);
+    currentBook ? editBook(bookData) : addBook(bookData);
     navigate(-2);
   };
+
   return (
     <>
       <SubHeader text={currentBook ? '책 수정' : '책 등록'} />

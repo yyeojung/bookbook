@@ -8,30 +8,16 @@ interface ChartBookProps extends ChartColorProps {
 }
 
 const ChartBook = ({ currentTheme, chartData }: ChartBookProps) => {
-  // 월별 차트 데이터
-  const countMonthBook = (chartData: number[]) => {
-    const monthArray = Array(12).fill(0);
-
-    chartData.forEach((month) => {
-      if (month !== undefined) {
-        monthArray[month] += 1;
-      }
-    });
-
-    return monthArray;
-  };
-  const monthBookLength = countMonthBook(chartData as number[]);
-
-  const monthMaxValue = Math.max(...monthBookLength) || 4;
+  const monthMaxValue = Math.max(...chartData) || 4;
   const maxValue = Math.ceil(monthMaxValue / 4) * 4;
-  const stepSize = monthMaxValue > 0 ? Math.ceil(monthMaxValue / 4) : 1;
+  const stepSize = monthMaxValue > 0 ? Math.ceil(maxValue / 4) : 1;
 
   const data = {
     labels: ['1월', '', '3월', '', '5월', '', '7월', '', '9월', '', '11월', ''],
     datasets: [
       {
         label: '권수',
-        data: monthBookLength,
+        data: chartData,
         backgroundColor: [
           currentTheme.mainColor,
           currentTheme.subColor01,

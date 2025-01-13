@@ -1,9 +1,7 @@
 import { Route, Routes, useLocation } from 'react-router-dom';
-import { themes } from './assets/style/theme';
 import './App.css';
 import Home from 'page/Home';
-import styled, { ThemeProvider } from 'styled-components';
-import { useState } from 'react';
+import { ThemeProvider } from 'styled-components';
 import Library from 'page/Library';
 import Setting from 'page/Setting';
 import Statistics from 'page/Statistics';
@@ -14,39 +12,19 @@ import Login from './page/Login';
 import HomeDetail from 'page/HomeDetail';
 import HomeRegister from 'page/HomeRegister';
 import LibraryBook from 'page/LibraryBook';
+import { useThemeStore } from 'store/useThemeStore';
 
-const Delete = styled.div`
-  display: flex;
-  position: fixed;
-  bottom: 8rem;
-  z-index: 1000;
-
-  button {
-    border: 2px solid red;
-    font-size: 2rem;
-  }
-`;
 function App() {
-  const [currentTheme, setCurrentTheme] = useState(themes['pink']);
+  const { isThemeColor } = useThemeStore();
   const location = useLocation();
-
-  const onClickTheme = (themeName: keyof typeof themes) => {
-    setCurrentTheme(themes[themeName]);
-  };
 
   // 메뉴 숨기는 화면
   const hidePath = ['/'];
   const isMenuHide = !hidePath.includes(location.pathname);
 
   return (
-    <ThemeProvider theme={currentTheme}>
+    <ThemeProvider theme={isThemeColor}>
       <div className='App'>
-        <Delete>
-          <button onClick={() => onClickTheme('pink')}> pi</button>
-          <button onClick={() => onClickTheme('green')}> gr</button>
-          <button onClick={() => onClickTheme('blue')}> bl</button>
-          <button onClick={() => onClickTheme('yellow')}> ye</button>
-        </Delete>
         {isMenuHide && <Menu />}
         <Routes>
           <Route path='/home' element={<Home />} />
@@ -58,7 +36,7 @@ function App() {
           <Route path='/home/edit/:bookId' element={<HomeRegister />} />
           <Route
             path='/statistics'
-            element={<Statistics currentTheme={currentTheme} />}
+            element={<Statistics currentTheme={isThemeColor} />}
           />
           <Route path='/setting' element={<Setting />} />
           <Route path='/' element={<Login />} />

@@ -74,11 +74,11 @@ export default function ModalLayout({
         <div className='default confirm'>
           <p>{message}</p>
           <div className='btn_wrap'>
-            <Button width={100} onClick={onClick}>
-              확인
-            </Button>
             <Button width={100} className='gray' onClick={onClose}>
               취소
+            </Button>
+            <Button width={100} onClick={onClick}>
+              확인
             </Button>
           </div>
         </div>
