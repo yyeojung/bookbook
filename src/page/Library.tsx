@@ -17,7 +17,6 @@ const Tab = styled.ul`
   padding: 0 2rem;
   li {
     cursor: pointer;
-    padding: 0 0.8rem;
     height: 100%;
     line-height: 4rem;
     width: 33.333%;
@@ -89,16 +88,15 @@ export default function Library() {
     isViewBook = readingBooks;
   }
 
-  // 정렬
+  // 정렬 (읽고있는 책은 시작일 기준)
   isViewBook.sort((a, b) => {
-    if (!a.endDate || !b.endDate) {
-      return 0;
-    }
+    const dateA = a.endDate ? new Date(a.endDate) : new Date(a.startDate!);
+    const dateB = b.endDate ? new Date(b.endDate) : new Date(b.startDate!);
 
     if (isAscending) {
-      return new Date(a.endDate).getTime() - new Date(b.endDate).getTime();
+      return dateA.getTime() - dateB.getTime();
     } else {
-      return new Date(b.endDate).getTime() - new Date(a.endDate).getTime();
+      return dateB.getTime() - dateA.getTime();
     }
   });
 

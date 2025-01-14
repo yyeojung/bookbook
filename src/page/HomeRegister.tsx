@@ -55,7 +55,7 @@ export default function HomeRegister() {
 
   const [readFinish, setReadFinish] = useState(true); // 읽은 책, 읽고 있는 책
   const [pageBtn, setPageBtn] = useState(true); // 읽고 있는 책 쪽, %
-  const [inputPage, setInputPage] = useState<number>(0); // 읽고 있는 책 페이지
+  const [inputPage, setInputPage] = useState<number>(); // 읽고 있는 책 페이지
   const [review, setReview] = useState(''); // 한줄평
   const [rating, setRating] = useState(0);
   const [readingDate, setReadingDate] = useState<Date | null>(new Date());
@@ -67,7 +67,7 @@ export default function HomeRegister() {
     if (currentBook) {
       setReadFinish(currentBook.bookState ?? true);
       setPageBtn(currentBook.pagePercent ?? true);
-      setInputPage(currentBook.pageNum ?? 0);
+      setInputPage(currentBook.pageNum ?? undefined);
       setReview(currentBook.review ?? '');
       setRating(currentBook.starRating ?? 0);
       setReadingDate(currentBook.startDate ?? new Date());
@@ -108,8 +108,8 @@ export default function HomeRegister() {
       endDate: readFinish ? endDate : null,
       starRating: readFinish ? rating : undefined,
       review: readFinish ? review : null,
-      pagePercent: !readFinish || !pageBtn,
-      pageNum: !readFinish ? inputPage : 0,
+      pagePercent: !pageBtn,
+      pageNum: inputPage || 0,
 
       // 책 정보
       title: state.title,
